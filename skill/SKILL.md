@@ -1,54 +1,100 @@
 ---
 name: posterforge
-description: Generate one mobile-first text card image from operational summaries, alerts, experiment reports, weekly reports, or concise text briefs. Use when the user asks for 单图, 战报图, 小红书风格单图, 告警总结图, 实验战报, mobile-readable poster, or a text-first social card.
+description: Generate one mobile-first text card image from operational summaries, alerts, incident reports, rankings, experiment updates, weekly reports, or concise text briefs. Use when the user asks for 单图, 海报, 战报图, 小红书风格单图, 告警总结图, 实验战报, mobile-readable poster, text poster, text card, or social card.
 ---
 
 # PosterForge Skill
 
-Create exactly one high-resolution mobile-readable PNG card from structured data.
+Create exactly one high-resolution mobile-readable PNG text poster from a small JSON spec.
 
-## Default
+## When To Use
 
-- Produce one 1080x1440 logical card exported at 3x by default.
-- Do not create a carousel unless explicitly requested.
-- Do not say "I am using this skill"; just produce the card.
-- Do not generate new photos or illustrations.
-- Optional user-provided images may be used later, but v0 is text-first.
+Use this skill when the user asks for a polished single image from text, for example:
 
-## Workflow
+- "把这段告警排查结果生成一张海报"
+- "做一张小红书单图"
+- "把这个排行榜做成战报图"
+- "给这个实验结果生成一张移动端卡片"
+- "Turn this incident summary into a mobile poster"
+- "Make a text-first social card from this report"
 
-1. Compress the source into a `CardSpec` JSON:
-   - `style`: choose one registered style name
-   - `title`
-   - `subtitle`
-   - `summary`
-   - `content`: string, string array, or `{ title, text }` array
-   - `footer`
-2. Check the selected style's text budget below. Rewrite overlong fields before rendering.
-3. Save the JSON in the task folder.
-4. Run:
+Do not use this skill for photo generation, illustration generation, general graphic design, slides, or multi-image carousels unless the user explicitly asks for that output.
+
+## Defaults
+
+- Produce one `1080x1440` logical card.
+- Export at `3x` by default, producing a `3240x4320` PNG.
+- If the destination rejects large files, rerender with `--scale 2`.
+- If the user did not choose a style, pick one from the selection rules below.
+- If the user gives too little content, create a concise card from the facts they provided. Do not invent metrics, names, dates, causes, or outcomes.
+- Do not say "I am using this skill". Just produce the image.
+
+## Public Input Shape
+
+Prefer this `CardSpec` shape:
+
+```json
+{
+  "style": "signal",
+  "title": "Short Title",
+  "summary": "One compact conclusion paragraph.",
+  "content": [
+    { "title": "Point", "text": "Short supporting detail." },
+    { "title": "Action", "text": "Short next step or result." }
+  ],
+  "footer": "Optional Footer"
+}
+```
+
+Use only `style`, `title`, `summary`, `content`, and optional `footer` unless the user explicitly asks for a custom data shape. `subtitle`, `metrics`, `rankings`, and `sections` may still work as legacy fields, but they are not the recommended agent output.
+
+## Happy Path
+
+1. Read the source material.
+2. Compress it into the recommended `CardSpec` JSON.
+3. Pick a style using the selection rules.
+4. Check the selected style's text budget. Rewrite overlong fields before rendering.
+5. Save the JSON as `spec.json` in the task folder.
+6. Run:
 
 ```bash
 posterforge render spec.json --out output.png
 ```
 
-This produces a 3240x4320 PNG by default. Use `--scale 2` only if the output file is too large for the destination channel.
+7. Inspect `output.png`.
+8. If text is clipped, crowded, or visually awkward, shorten the JSON and rerender.
+9. Send or return `output.png`.
 
-5. Inspect the PNG. If text is clipped or visually crowded, shorten the JSON and rerender before sending.
-6. Send or return `output.png`.
+## CLI Fallback
 
-## Selection
+If `posterforge` is not available in `PATH`, try the source checkout:
 
-- Battle report / ranking / top list: `arena`, `podium`, `sprint`, `delta`, `matrix`, or `heat`
-- Alert / root cause / incident: `ledger`, `dossier`, `audit`, `terminal`, `bulletin`, `noir`, or `graphite`
-- Weekly / daily / KPI / experiment summary: `signal`, `pulse`, `atlas`, `prism`, `compass`, `mercury`, or `editorial`
-- Default to `ledger` for operational diagnosis, `arena` for rankings, and `signal` for KPI reports.
+```bash
+node ./bin/posterforge.mjs render spec.json --out output.png
+```
 
-Keep the image scannable. The preferred shape is always title, summary, and content. Avoid generating extra decorative fields unless the user explicitly asks for them.
+If that fails, check that dependencies are installed:
+
+```bash
+pnpm install
+pnpm build
+```
+
+PNG export requires Chromium, Google Chrome, or another compatible headless browser available to the runtime.
+
+## Style Selection
+
+- Alert / root cause / incident: default to `ledger`; use `terminal` for technical command/log summaries, `audit` for checklist verification, `noir` for serious incident notes, `dossier` for investigation-style case files.
+- Ranking / battle report / top list: default to `arena`; use `podium` for top-three reports, `sprint` for fast ranking readouts, `matrix` for comparisons, `heat` for hot spots.
+- Weekly / daily / KPI / experiment summary: default to `signal`; use `editorial` for narrative briefs, `atlas` for broad overviews, `prism` for multi-signal summaries, `mercury` for compact mobile briefs.
+- Announcement / strong visual poster: use `bulletin`, `delta`, `pulse`, or `compass`.
+- Unknown intent: use `signal` for general business/report cards.
+
+Keep the image scannable. The preferred shape is always title, summary, and content. Avoid decorative fields, fake data, and raw transcript dumps.
 
 ## Text Budgets
 
-Budgets are conservative and counted in CJK/full-width characters. Punctuation counts. For English, safe capacity is usually about 1.8x the CJK budget, but long unbroken words still need shortening.
+Budgets are conservative and counted in CJK/full-width characters. Punctuation counts. For English, safe capacity is usually about `1.8x` the CJK budget, but long unbroken words still need shortening.
 
 Do not exceed these limits. If the source is longer, compress it before rendering instead of relying on CSS clipping.
 
@@ -76,3 +122,11 @@ Do not exceed these limits. If the source is longer, compress it before renderin
 | `editorial` | 18 | 55 | 4 | 8 | first 3: 34 each; side item: 28 |
 
 Use roomier styles for denser content: `dossier`, `editorial`, `matrix`, `terminal`, `audit`, or `prism`.
+
+## Failure Handling
+
+- If rendering fails because `posterforge` is missing, use the source CLI fallback above.
+- If rendering fails because no browser is available, report that Chromium/Chrome is required for PNG export.
+- If text is clipped or crowded, shorten the `CardSpec`; do not edit CSS for a one-off task.
+- If the user asks for multiple images but did not explicitly request a carousel, create one strong card first and ask only if they need more.
+- If facts are missing, keep the card generic or ask for the missing fact. Do not fabricate metrics, incident causes, owners, dates, or results.
