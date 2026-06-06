@@ -166,11 +166,7 @@ function StudioApp() {
       </aside>
 
       <main className="ml-[190px] flex h-screen min-w-0 flex-col overflow-hidden">
-        <header className="z-10 shrink-0 border-b border-paper-300 bg-[#ece8df]/95 px-6 py-3 backdrop-blur">
-          <div className="mb-2 flex justify-end">
-            <div className="shrink-0 font-mono text-[11px] font-bold text-ink-500">{CARD_WIDTH}x{CARD_HEIGHT} logical · export 3x</div>
-          </div>
-
+        <header className="z-10 shrink-0 border-b border-paper-300 bg-[#ece8df]/95 px-6 py-2.5 backdrop-blur">
           <div className="studio-scroll flex gap-1.5 overflow-x-auto pb-1">
             {activeCategory.items.map((item) => {
               const isPreset = activeCategory.kind === 'preset';
@@ -219,7 +215,10 @@ function StudioApp() {
 
           <aside className="flex min-h-0 min-w-0 flex-col overflow-hidden">
             <label className="flex min-h-0 flex-1 flex-col">
-              <span className="font-mono text-[10px] font-black uppercase text-ink-500">Fixture JSON</span>
+              <div className="flex items-center justify-between gap-3">
+                <span className="font-mono text-[10px] font-black uppercase text-ink-500">Fixture JSON</span>
+                <span className="shrink-0 font-mono text-[10px] font-bold text-ink-500">{CARD_WIDTH}x{CARD_HEIGHT} logical · export 3x</span>
+              </div>
               <textarea
                 className="mt-2 min-h-0 flex-1 resize-none border border-paper-300 bg-white p-3 font-mono text-[11px] leading-relaxed outline-none"
                 value={fixtureText}
