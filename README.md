@@ -194,6 +194,12 @@ List available styles:
 posterforge templates
 ```
 
+Print the bundled skill file path for agent runtimes:
+
+```bash
+posterforge skill-path
+```
+
 ## Agent And Skill Usage
 
 This project includes a skill definition in [skill/SKILL.md](skill/SKILL.md). Use it with OpenClaw, Codex, Claude, or any agent runtime that can read a skill file and call local commands.

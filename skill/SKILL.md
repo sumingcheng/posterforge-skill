@@ -5,7 +5,7 @@ description: Generate one mobile-first text card image from operational summarie
 
 # PosterForge Skill
 
-Create exactly one high-resolution mobile-readable PNG text poster from a small JSON spec.
+Create exactly one high-resolution mobile-readable PNG text poster from direct CLI fields or a small JSON spec.
 
 ## When To Use
 
@@ -31,7 +31,13 @@ Do not use this skill for photo generation, illustration generation, general gra
 
 ## Public Input Shape
 
-Prefer this `CardSpec` shape:
+For short cards, pass fields directly to the CLI. Use repeated `--item "Title: text"` flags for content points:
+
+```bash
+posterforge render --style signal --title "Service Health" --summary "Errors are down." --item "Impact: One route was affected." --item "Action: Keep fallback enabled." --out output.png
+```
+
+For longer material, create this `CardSpec` shape first:
 
 ```json
 {
@@ -51,11 +57,16 @@ Use only `style`, `title`, `summary`, `content`, and optional `footer` unless th
 ## Happy Path
 
 1. Read the source material.
-2. Compress it into the recommended `CardSpec` JSON.
+2. Compress it into `title`, `summary`, and short content points.
 3. Pick a style using the selection rules.
 4. Check the selected style's text budget. Rewrite overlong fields before rendering.
-5. Save the JSON as `spec.json` in the task folder.
-6. Run:
+5. For short cards, render directly:
+
+```bash
+posterforge render --style signal --title "Service Health" --summary "Errors are down." --item "Impact: One route was affected." --item "Action: Keep fallback enabled." --out output.png
+```
+
+6. For longer cards, save the JSON as `spec.json` in the task folder and run:
 
 ```bash
 posterforge render spec.json --out output.png
@@ -64,14 +75,6 @@ posterforge render spec.json --out output.png
 7. Inspect `output.png`.
 8. If text is clipped, crowded, or visually awkward, shorten the JSON and rerender.
 9. Send or return `output.png`.
-
-For very short cards, it is also acceptable to skip the temporary JSON file and pass fields directly:
-
-```bash
-posterforge render --style signal --title "Service Health" --summary "Errors are down." --item "Impact: One route was affected." --item "Action: Keep fallback enabled." --out output.png
-```
-
-Use repeated `--item "Title: text"` flags for content points. Prefer the JSON path for longer source material because it is easier to inspect and revise.
 
 ## CLI Fallback
 

@@ -194,6 +194,12 @@ posterforge init --style signal --out card.json
 posterforge templates
 ```
 
+输出 npm 包内置的 skill 文件路径，方便接入 Agent runtime：
+
+```bash
+posterforge skill-path
+```
+
 ## Agent 和 Skill 使用
 
 项目内置了 Skill 定义：[skill/SKILL.md](skill/SKILL.md)。可以给 OpenClaw、Codex、Claude 或任何支持读取 skill 文件并调用本地命令的 Agent runtime 使用。

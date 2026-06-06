@@ -16,6 +16,12 @@ Then expose `skill/SKILL.md` to your agent runtime as a skill definition. The ru
 posterforge render spec.json --out output.png
 ```
 
+The npm package includes the skill file. Print its path with:
+
+```bash
+posterforge skill-path
+```
+
 For quick one-off cards, the runtime can also call the CLI without writing a JSON file first:
 
 ```bash
@@ -31,6 +37,24 @@ pnpm install
 pnpm build
 node ./bin/posterforge.mjs render ./examples/alert.json --out ./dist/alert.png
 ```
+
+## OpenClaw Install Or Upgrade
+
+If the runtime previously used a local checkout or an older package name, uninstall it first so the CLI does not keep pointing at a stale symlink:
+
+```bash
+npm uninstall -g posterforge posterforge-skill
+npm install -g posterforge@latest
+```
+
+Then copy the bundled skill into the OpenClaw workspace:
+
+```bash
+mkdir -p ~/.openclaw/workspace/skills/posterforge
+cp "$(posterforge skill-path)" ~/.openclaw/workspace/skills/posterforge/SKILL.md
+```
+
+Restart the gateway or agent runtime if it caches skill files at startup.
 
 ## Recommended Agent Flow
 

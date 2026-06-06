@@ -20,12 +20,14 @@ Usage:
   posterforge html --style <name> --title <text> --summary <text> --item "Title: text" --out <output.html>
   posterforge spec --style <name> --title <text> --summary <text> --item "Title: text" [--out <spec.json>]
   posterforge init [--style <name>] [--out <spec.json>]
+  posterforge skill-path
   posterforge templates
 
 Examples:
   posterforge render examples/alert.json --out dist/alert.png
   posterforge render --style signal --title "Service Health" --summary "Errors are down." --item "Impact: One route was affected." --item "Action: Keep fallback enabled." --out dist/card.png
   posterforge spec --style ledger --title "Alert Brief" --summary "Kong 4xx increased." --item "Cause: Upstream returned model-not-found." --out card.json
+  posterforge skill-path
   posterforge render examples/alert.json --out dist/alert.png --scale 2
   posterforge html examples/alert.json --out dist/alert.html
   posterforge templates
@@ -129,6 +131,7 @@ function parseArgs(argv) {
 
 function validateOptions(opts) {
   if (opts.command === 'templates') return;
+  if (opts.command === 'skill-path') return;
   if (opts.command === 'spec' || opts.command === 'init') return;
   if (!Number.isFinite(opts.width) || opts.width <= 0) throw new Error('--width must be a positive number.');
   if (!Number.isFinite(opts.height) || opts.height <= 0) throw new Error('--height must be a positive number.');
@@ -313,6 +316,11 @@ function main() {
       const accepts = template.accepts?.length ? ` accepts=${template.accepts.join(',')}` : '';
       console.log(`${template.styleName}\t${template.name}\t${template.description}${aliases}${accepts}`);
     }
+    return;
+  }
+
+  if (opts.command === 'skill-path') {
+    console.log(join(ROOT_DIR, 'skill', 'SKILL.md'));
     return;
   }
 
