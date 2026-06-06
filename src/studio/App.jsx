@@ -167,11 +167,7 @@ function StudioApp() {
 
       <main className="ml-[190px] flex h-screen min-w-0 flex-col overflow-hidden">
         <header className="z-10 shrink-0 border-b border-paper-300 bg-[#ece8df]/95 px-6 py-3 backdrop-blur">
-          <div className="mb-2 flex items-end justify-between gap-6">
-            <div>
-              <div className="font-mono text-[9px] font-black uppercase text-ink-500">{activeCategory.eyebrow}</div>
-              <div className="text-base font-black leading-tight">{activeCategory.label}</div>
-            </div>
+          <div className="mb-2 flex justify-end">
             <div className="shrink-0 font-mono text-[11px] font-bold text-ink-500">{CARD_WIDTH}x{CARD_HEIGHT} logical · export 3x</div>
           </div>
 
