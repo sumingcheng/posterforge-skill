@@ -8,9 +8,9 @@
 [![Node.js](https://img.shields.io/badge/node-%3E%3D20-339933.svg)](package.json)
 [![pnpm](https://img.shields.io/badge/pnpm-10.12.1-f69220.svg)](package.json)
 
-Turn a tiny JSON spec into polished mobile-first text posters for agents, bots, alerts, reports, rankings, and social cards.
+Turn quick CLI parameters or a tiny JSON spec into polished mobile-first text posters for agents, bots, alerts, reports, rankings, and social cards.
 
-PosterForge Skill is not a design app, image generation model, PPT tool, or carousel builder. It is an agent-friendly text poster renderer: small input, deterministic layout, high-DPI PNG output, and reusable visual systems.
+PosterForge Skill is not a design app, image generation model, PPT tool, or carousel builder. It is an agent-friendly text poster renderer: direct command-line input, deterministic layout, high-DPI PNG output, and reusable visual systems.
 
 | Ledger | Arena | Signal |
 | --- | --- | --- |
@@ -22,7 +22,22 @@ PosterForge Skill is not a design app, image generation model, PPT tool, or caro
 npm install -g posterforge
 ```
 
-Create `card.json`:
+The fastest path does not require a JSON file. Pass the card content directly:
+
+```bash
+posterforge render \
+  --style signal \
+  --title "Service Health" \
+  --summary "Errors dropped after the routing fix. Latency is back within the normal range." \
+  --item "Impact: Only one provider route was affected." \
+  --item "Action: Keep the fallback route enabled and monitor for one hour." \
+  --item "Status: Traffic is stable and no new alerts are firing." \
+  --out card.png
+```
+
+By default this exports a `3240x4320` PNG from a `1080x1440` logical canvas.
+
+Use JSON when you want a stable, reusable spec. Create `card.json`:
 
 ```json
 {
@@ -42,21 +57,6 @@ Render:
 
 ```bash
 posterforge render card.json --out card.png
-```
-
-By default this exports a `3240x4320` PNG from a `1080x1440` logical canvas.
-
-For one-off usage, skip the JSON file and pass the card fields directly:
-
-```bash
-posterforge render \
-  --style signal \
-  --title "Service Health" \
-  --summary "Errors dropped after the routing fix. Latency is back within the normal range." \
-  --item "Impact: Only one provider route was affected." \
-  --item "Action: Keep the fallback route enabled and monitor for one hour." \
-  --item "Status: Traffic is stable and no new alerts are firing." \
-  --out card.png
 ```
 
 Generate a reusable JSON spec from quick parameters:
