@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    margin: 0;
+    background: #eeeae1;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: geometricPrecision;
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer components {
+  .studio-scroll {
+    scrollbar-color: rgba(17, 19, 24, 0.28) transparent;
+    scrollbar-width: thin;
+  }
+
+  .studio-scroll::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+  }
+
+  .studio-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .studio-scroll::-webkit-scrollbar-thumb {
+    background: rgba(17, 19, 24, 0.18);
+    border: 2px solid transparent;
+    border-radius: 999px;
+    background-clip: content-box;
+  }
+
+  .studio-scroll:hover::-webkit-scrollbar-thumb {
+    background: rgba(17, 19, 24, 0.34);
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+
+  .card-grid-bg {
+    background:
+      radial-gradient(circle at 14% 10%, rgba(184, 106, 34, 0.12), transparent 24%),
+      linear-gradient(90deg, rgba(17, 19, 24, 0.035) 1px, transparent 1px),
+      linear-gradient(0deg, rgba(17, 19, 24, 0.03) 1px, transparent 1px),
+      #eeeae1;
+    background-size: auto, 72px 72px, 72px 72px, auto;
+  }
+
+  .report-rule {
+    border-color: #d6c7ae;
+  }
+}

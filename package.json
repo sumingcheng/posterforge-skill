@@ -1,0 +1,58 @@
+{
+  "name": "posterforge-skill",
+  "version": "0.1.0",
+  "description": "Open-source skill and CLI for generating high-quality mobile text card posters from JSON.",
+  "type": "module",
+  "packageManager": "pnpm@10.12.1",
+  "homepage": "https://github.com/sumingcheng/posterforge-skill#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sumingcheng/posterforge-skill.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sumingcheng/posterforge-skill/issues"
+  },
+  "bin": {
+    "posterforge": "./bin/posterforge.mjs",
+    "mobile-text-card": "./bin/posterforge.mjs"
+  },
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "render:alert": "node ./bin/posterforge.mjs render ./examples/alert.json --out ./dist/alert.png",
+    "render:experiment": "node ./bin/posterforge.mjs render ./examples/experiment.json --out ./dist/experiment.png",
+    "render:battle": "node ./bin/posterforge.mjs render ./examples/battle-ranking.json --out ./dist/battle-ranking.png",
+    "render:all": "pnpm render:alert && pnpm render:experiment && pnpm render:battle",
+    "check": "node ./bin/posterforge.mjs render ./examples/battle-ranking.json --out ./dist/check.png && node ./bin/posterforge.mjs templates"
+  },
+  "keywords": [
+    "posterforge",
+    "skill",
+    "agent",
+    "card",
+    "poster",
+    "text-card",
+    "text-poster",
+    "rednote",
+    "xiaohongshu",
+    "openclaw",
+    "html-to-image"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "htm": "3.1.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "tailwindcss": "3.4.17"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "6.0.2",
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.5.15",
+    "vite": "8.0.16"
+  }
+}
