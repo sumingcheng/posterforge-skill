@@ -6,7 +6,7 @@ import { spawnSync } from 'node:child_process';
 import { renderCardDocument } from '../src/render/html.mjs';
 import { listTemplates } from '../src/templates/registry.mjs';
 
-const VERSION = '0.1.0';
+const VERSION = '0.1.1';
 const DEFAULT_SCALE = 3;
 const ROOT_DIR = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -31,6 +31,10 @@ Defaults:
 }
 
 function parseArgs(argv) {
+  if (argv[0] === '--help' || argv[0] === '-h') {
+    return { help: true };
+  }
+
   const [command, input, ...rest] = argv;
   const opts = {
     command,

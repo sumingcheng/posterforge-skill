@@ -1,6 +1,6 @@
 {
   "name": "posterforge-skill",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Open-source skill and CLI for generating high-quality mobile text card posters from JSON.",
   "type": "module",
   "packageManager": "pnpm@10.12.1",
@@ -23,7 +23,10 @@
     "render:alert": "node ./bin/posterforge.mjs render ./examples/alert.json --out ./dist/alert.png",
     "render:experiment": "node ./bin/posterforge.mjs render ./examples/experiment.json --out ./dist/experiment.png",
     "render:battle": "node ./bin/posterforge.mjs render ./examples/battle-ranking.json --out ./dist/battle-ranking.png",
-    "render:all": "pnpm render:alert && pnpm render:experiment && pnpm render:battle",
+    "render:incident": "node ./bin/posterforge.mjs render ./examples/incident-brief.json --out ./dist/incident-brief.png",
+    "render:weekly": "node ./bin/posterforge.mjs render ./examples/weekly-brief.json --out ./dist/weekly-brief.png",
+    "render:product": "node ./bin/posterforge.mjs render ./examples/product-update.json --out ./dist/product-update.png",
+    "render:all": "pnpm render:alert && pnpm render:experiment && pnpm render:battle && pnpm render:incident && pnpm render:weekly && pnpm render:product",
     "generate:previews": "node ./scripts/generate-previews.mjs",
     "check": "node ./bin/posterforge.mjs render ./examples/battle-ranking.json --out ./dist/check.png && node ./bin/posterforge.mjs templates"
   },

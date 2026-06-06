@@ -1,0 +1,24 @@
+{
+  "style": "editorial",
+  "title": "Weekly Brief",
+  "summary": "The launch stabilized after two routing fixes. Conversion improved and support volume stayed flat.",
+  "content": [
+    {
+      "title": "Growth",
+      "text": "New activation flow lifted completion rate in the main onboarding segment."
+    },
+    {
+      "title": "Quality",
+      "text": "Latency stayed within the target range after the cache warmup change."
+    },
+    {
+      "title": "Risk",
+      "text": "One provider remains noisy and should stay behind fallback routing."
+    },
+    {
+      "title": "Next",
+      "text": "Ship the retry dashboard and review the alert thresholds on Monday."
+    }
+  ],
+  "footer": "Team Update"
+}

@@ -1,0 +1,24 @@
+{
+  "style": "signal",
+  "title": "Product Update",
+  "summary": "The new detail page is ready for staged rollout. Metrics and guardrails are already wired.",
+  "content": [
+    {
+      "title": "Ready",
+      "text": "Core flows passed regression and the fallback page remains available."
+    },
+    {
+      "title": "Measure",
+      "text": "Track click-through, completion rate, error rate, and support tickets."
+    },
+    {
+      "title": "Rollout",
+      "text": "Start with internal traffic, then expand to ten percent after one stable day."
+    },
+    {
+      "title": "Owner",
+      "text": "Product and engineering review the first dashboard snapshot together."
+    }
+  ],
+  "footer": "Launch Note"
+}

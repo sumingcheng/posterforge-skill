@@ -1,0 +1,24 @@
+{
+  "style": "ledger",
+  "title": "Incident Brief",
+  "summary": "Error traffic dropped after one provider route was removed from rotation. The service is stable again.",
+  "content": [
+    {
+      "title": "Trigger",
+      "text": "A provider returned repeated model-not-found responses during peak traffic."
+    },
+    {
+      "title": "Impact",
+      "text": "Only requests on one route were affected; fallback traffic continued normally."
+    },
+    {
+      "title": "Action",
+      "text": "Removed the unhealthy provider route and kept the fallback route enabled."
+    },
+    {
+      "title": "Status",
+      "text": "No new alerts are firing. Keep watching error rate and latency for one hour."
+    }
+  ],
+  "footer": "Ops Brief"
+}

@@ -2,40 +2,78 @@
 
 [English](README.md)
 
-用一份很小的 JSON，生成高质量的移动端文字海报图。
+[![CI](https://github.com/sumingcheng/posterforge-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/sumingcheng/posterforge-skill/actions/workflows/ci.yml)
+[![Version](https://img.shields.io/github/v/tag/sumingcheng/posterforge-skill?label=version)](https://github.com/sumingcheng/posterforge-skill/tags)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Node.js](https://img.shields.io/badge/node-%3E%3D20-339933.svg)](package.json)
+[![pnpm](https://img.shields.io/badge/pnpm-10.12.1-f69220.svg)](package.json)
 
-PosterForge Skill 是一个轻量的 React/Tailwind 海报渲染器，适合 Agent、机器人和自动化工作流。你只需要提供标题、摘要和几个内容点，它就会生成一张适合手机阅读的 `1080x1440` PNG。
+用一份很小的 JSON，为 Agent、机器人、告警、战报、汇报和社交内容生成高质量移动端文字海报。
 
-适合用来做：
+PosterForge Skill 不是设计软件，不是图片生成模型，不是 PPT 工具，也不是多图轮播系统。它是一个面向 Agent 的文字海报渲染器：输入很小，版式稳定，本地渲染，输出高分辨率 PNG。
 
-- 告警和事故总结图
-- 排行榜、战报图
-- 实验和 KPI 更新
-- 周报、日报、简报
-- 文字型社交媒体单图
+| Ledger | Arena | Signal |
+| --- | --- | --- |
+| ![Ledger 预览](docs/previews/ledger.png) | ![Arena 预览](docs/previews/arena.png) | ![Signal 预览](docs/previews/signal.png) |
 
-它不是通用海报设计系统，也不负责生成图片素材、插画、多图轮播。它专注做一件事：快速生成一张好看的文字卡片。
+## 30 秒开始
 
-## 预览
+```bash
+npm install -g github:sumingcheng/posterforge-skill
+```
+
+创建 `card.json`：
 
 ```json
 {
-  "style": "ledger",
-  "title": "Lorem Ipsum",
-  "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  "style": "signal",
+  "title": "Service Health",
+  "summary": "Errors dropped after the routing fix. Latency is back within the normal range.",
   "content": [
-    { "title": "Dolor Sit", "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit." },
-    { "title": "Amet Elit", "text": "Praesent commodo cursus magna, vel scelerisque nisl consectetur et." }
+    { "title": "Impact", "text": "Only one provider route was affected." },
+    { "title": "Action", "text": "Keep the fallback route enabled and monitor for one hour." },
+    { "title": "Status", "text": "Traffic is stable and no new alerts are firing." }
   ],
-  "footer": "PosterForge Skill"
+  "footer": "Ops Brief"
 }
 ```
+
+渲染：
 
 ```bash
 posterforge render card.json --out card.png
 ```
 
 默认逻辑画布是 `1080x1440`，导出为 `3x`，最终 PNG 尺寸是 `3240x4320`。
+
+## 为什么用 PosterForge
+
+| 需求 | PosterForge 的做法 |
+| --- | --- |
+| Agent 需要稳定输出 | 使用很小的 `CardSpec`，不依赖自由 HTML 或图片提示词。 |
+| 文字海报必须可读 | 每个主题都有保守的字数预算。 |
+| 自动化流程需要可重复 | 依赖安装完成后，本地渲染结果稳定。 |
+| 团队需要多种风格 | 内置 20 套视觉系统，用短 style 名选择。 |
+| 开源贡献要简单 | 新主题集中在模板注册表和模板包里维护。 |
+
+## 使用场景
+
+| 场景 | 示例 | 推荐风格 |
+| --- | --- | --- |
+| 告警根因总结 | [examples/alert.json](examples/alert.json), [examples/incident-brief.json](examples/incident-brief.json) | `ledger`, `audit`, `terminal`, `noir` |
+| 排行榜、战报 | [examples/battle-ranking.json](examples/battle-ranking.json) | `arena`, `podium`, `sprint`, `matrix` |
+| 实验或 KPI 更新 | [examples/experiment.json](examples/experiment.json) | `signal`, `prism`, `atlas`, `mercury` |
+| 周报、日报、团队简报 | [examples/weekly-brief.json](examples/weekly-brief.json) | `editorial`, `signal`, `atlas` |
+| 产品发布更新 | [examples/product-update.json](examples/product-update.json) | `signal`, `bulletin`, `compass` |
+
+渲染内置示例：
+
+```bash
+pnpm render:alert
+pnpm render:incident
+pnpm render:weekly
+pnpm render:product
+```
 
 ## 主题图廊
 
@@ -77,7 +115,7 @@ posterforge render card.json --out card.png
 - 开发时推荐使用 `pnpm`
 - 高质量 PNG 导出需要 Chromium、Google Chrome 或兼容的无头浏览器
 
-现在可以直接从 GitHub 安装：
+直接从 GitHub 安装：
 
 ```bash
 npm install -g github:sumingcheng/posterforge-skill
@@ -106,39 +144,21 @@ npm install -g .
 posterforge templates
 ```
 
-## 快速开始
+## Agent 和 Skill 使用
 
-创建 `card.json`：
+项目内置了 Skill 定义：[skill/SKILL.md](skill/SKILL.md)。可以给 OpenClaw、Codex、Claude 或任何支持读取 skill 文件并调用本地命令的 Agent runtime 使用。
 
-```json
-{
-  "style": "signal",
-  "title": "Service Health",
-  "summary": "Errors dropped after the routing fix. Latency is back within the normal range.",
-  "content": [
-    { "title": "Impact", "text": "Only one provider route was affected." },
-    { "title": "Action", "text": "Keep the fallback route enabled and monitor for one hour." },
-    { "title": "Status", "text": "Traffic is stable and no new alerts are firing." }
-  ],
-  "footer": "Ops Brief"
-}
-```
+推荐流程：
 
-渲染：
+1. 把原始内容压缩成 `CardSpec`。
+2. 根据意图选择风格。
+3. 检查 [docs/TEXT_BUDGETS.md](docs/TEXT_BUDGETS.md)。
+4. 渲染 PNG。
+5. 检查图片是否截断或拥挤，再交付。
 
-```bash
-posterforge render card.json --out card.png
-```
+Agent 不应该在输出里说“我正在使用这个 skill”，直接生成图片即可。
 
-常用命令：
-
-```bash
-posterforge templates
-posterforge render card.json --out card.png --scale 2
-posterforge html card.json --out card.html
-```
-
-如果你是从源码运行，把 `posterforge` 替换成 `node ./bin/posterforge.mjs`。
+完整 Agent 接入说明见 [docs/AGENT_USAGE.md](docs/AGENT_USAGE.md)。
 
 ## CardSpec
 
@@ -188,20 +208,6 @@ posterforge templates
 - 原始日志、长聊天记录、长文档必须先压缩。
 - 如果渲染后看起来拥挤或被截断，必须缩短后重新渲染。
 
-## Agent 使用
-
-项目内置了 Skill 定义：[skill/SKILL.md](skill/SKILL.md)。
-
-Agent 使用时应该：
-
-1. 把原始内容压缩成 `CardSpec`。
-2. 选择一个合适的 `style`。
-3. 检查该风格的字数预算。
-4. 渲染 PNG。
-5. 检查图片是否截断或拥挤，再交付。
-
-Agent 不应该在输出里说“我正在使用这个 skill”，直接生成图片即可。
-
 ## 架构
 
 ```text
@@ -228,15 +234,10 @@ pnpm install
 pnpm build
 pnpm check
 pnpm dev
+pnpm generate:previews
 ```
 
-渲染示例：
-
-```bash
-pnpm render:alert
-pnpm render:experiment
-pnpm render:battle
-```
+新增主题前先看 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ## 设计原则
 

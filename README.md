@@ -2,40 +2,78 @@
 
 [中文说明](README.zh-CN.md)
 
-Generate high-quality mobile text-card posters from a small JSON spec.
+[![CI](https://github.com/sumingcheng/posterforge-skill/actions/workflows/ci.yml/badge.svg)](https://github.com/sumingcheng/posterforge-skill/actions/workflows/ci.yml)
+[![Version](https://img.shields.io/github/v/tag/sumingcheng/posterforge-skill?label=version)](https://github.com/sumingcheng/posterforge-skill/tags)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Node.js](https://img.shields.io/badge/node-%3E%3D20-339933.svg)](package.json)
+[![pnpm](https://img.shields.io/badge/pnpm-10.12.1-f69220.svg)](package.json)
 
-PosterForge Skill is a lightweight React/Tailwind poster renderer for agents, bots, and automation workflows. Give it a title, a short summary, and a few content points; it renders a polished 1080x1440 mobile-readable PNG.
+Turn a tiny JSON spec into polished mobile-first text posters for agents, bots, alerts, reports, rankings, and social cards.
 
-It is designed for:
+PosterForge Skill is not a design app, image generation model, PPT tool, or carousel builder. It is an agent-friendly text poster renderer: small input, deterministic layout, high-DPI PNG output, and reusable visual systems.
 
-- alert and incident summaries
-- ranking and battle-report cards
-- experiment and KPI updates
-- weekly or daily briefings
-- text-first social posts
+| Ledger | Arena | Signal |
+| --- | --- | --- |
+| ![Ledger preview](docs/previews/ledger.png) | ![Arena preview](docs/previews/arena.png) | ![Signal preview](docs/previews/signal.png) |
 
-It does not generate photos, illustrations, carousels, or general-purpose social layouts. The goal is one good text image, fast.
+## 30-Second Start
 
-## Preview
+```bash
+npm install -g github:sumingcheng/posterforge-skill
+```
+
+Create `card.json`:
 
 ```json
 {
-  "style": "ledger",
-  "title": "Lorem Ipsum",
-  "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  "style": "signal",
+  "title": "Service Health",
+  "summary": "Errors dropped after the routing fix. Latency is back within the normal range.",
   "content": [
-    { "title": "Dolor Sit", "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit." },
-    { "title": "Amet Elit", "text": "Praesent commodo cursus magna, vel scelerisque nisl consectetur et." }
+    { "title": "Impact", "text": "Only one provider route was affected." },
+    { "title": "Action", "text": "Keep the fallback route enabled and monitor for one hour." },
+    { "title": "Status", "text": "Traffic is stable and no new alerts are firing." }
   ],
-  "footer": "PosterForge Skill"
+  "footer": "Ops Brief"
 }
 ```
+
+Render:
 
 ```bash
 posterforge render card.json --out card.png
 ```
 
 By default this exports a `3240x4320` PNG from a `1080x1440` logical canvas.
+
+## Why PosterForge
+
+| Need | PosterForge approach |
+| --- | --- |
+| Agents need predictable output | Uses a tiny `CardSpec` instead of free-form HTML or image prompts. |
+| Text cards must stay readable | Every style has a conservative text budget. |
+| Workflows need speed and repeatability | Rendering is local and deterministic once dependencies are installed. |
+| Teams need many looks | 20 built-in style systems, each selected by a short style name. |
+| Contributors need a clean path | New styles live in one registry and one template pack. |
+
+## Use Cases
+
+| Use case | Example | Good styles |
+| --- | --- | --- |
+| Alert root-cause summary | [examples/alert.json](examples/alert.json), [examples/incident-brief.json](examples/incident-brief.json) | `ledger`, `audit`, `terminal`, `noir` |
+| Ranking or battle report | [examples/battle-ranking.json](examples/battle-ranking.json) | `arena`, `podium`, `sprint`, `matrix` |
+| Experiment or KPI update | [examples/experiment.json](examples/experiment.json) | `signal`, `prism`, `atlas`, `mercury` |
+| Weekly team brief | [examples/weekly-brief.json](examples/weekly-brief.json) | `editorial`, `signal`, `atlas` |
+| Product launch update | [examples/product-update.json](examples/product-update.json) | `signal`, `bulletin`, `compass` |
+
+Render bundled examples:
+
+```bash
+pnpm render:alert
+pnpm render:incident
+pnpm render:weekly
+pnpm render:product
+```
 
 ## Theme Gallery
 
@@ -83,13 +121,13 @@ Install directly from GitHub:
 npm install -g github:sumingcheng/posterforge-skill
 ```
 
-Or install from a published package after it is released to npm:
+Install from npm after a package release:
 
 ```bash
 pnpm add -g posterforge-skill
 ```
 
-Or use the repository directly:
+Use the repository directly:
 
 ```bash
 git clone https://github.com/sumingcheng/posterforge-skill.git
@@ -99,46 +137,28 @@ pnpm build
 node ./bin/posterforge.mjs render ./examples/alert.json --out ./dist/alert.png
 ```
 
-To expose the local CLI while developing:
+Expose the local CLI while developing:
 
 ```bash
 npm install -g .
 posterforge templates
 ```
 
-## Quick Start
+## Agent And Skill Usage
 
-Create `card.json`:
+This project includes a skill definition in [skill/SKILL.md](skill/SKILL.md). Use it with OpenClaw, Codex, Claude, or any agent runtime that can read a skill file and call local commands.
 
-```json
-{
-  "style": "signal",
-  "title": "Service Health",
-  "summary": "Errors dropped after the routing fix. Latency is back within the normal range.",
-  "content": [
-    { "title": "Impact", "text": "Only one provider route was affected." },
-    { "title": "Action", "text": "Keep the fallback route enabled and monitor for one hour." },
-    { "title": "Status", "text": "Traffic is stable and no new alerts are firing." }
-  ],
-  "footer": "Ops Brief"
-}
-```
+Recommended flow:
 
-Render it:
+1. Compress source material into `CardSpec`.
+2. Pick a style by intent.
+3. Check [docs/TEXT_BUDGETS.md](docs/TEXT_BUDGETS.md).
+4. Render the PNG.
+5. Inspect the image before returning it.
 
-```bash
-posterforge render card.json --out card.png
-```
+The agent should not announce that it is using the skill. It should simply produce the image.
 
-Useful commands:
-
-```bash
-posterforge templates
-posterforge render card.json --out card.png --scale 2
-posterforge html card.json --out card.html
-```
-
-If you are running from source, replace `posterforge` with `node ./bin/posterforge.mjs`.
+See [docs/AGENT_USAGE.md](docs/AGENT_USAGE.md) for the full agent integration guide.
 
 ## CardSpec
 
@@ -188,20 +208,6 @@ Short version:
 - compress raw logs or transcripts before rendering
 - rerender if the output looks clipped or crowded
 
-## Agent Usage
-
-This project includes a skill definition in [skill/SKILL.md](skill/SKILL.md).
-
-When used by an agent:
-
-1. Compress the source into `CardSpec`.
-2. Choose a style.
-3. Check the style's text budget.
-4. Render the PNG.
-5. Inspect the image before returning it.
-
-The agent should not announce that it is using the skill. It should simply produce the image.
-
 ## Architecture
 
 ```text
@@ -228,15 +234,10 @@ pnpm install
 pnpm build
 pnpm check
 pnpm dev
+pnpm generate:previews
 ```
 
-Render examples:
-
-```bash
-pnpm render:alert
-pnpm render:experiment
-pnpm render:battle
-```
+See [CONTRIBUTING.md](CONTRIBUTING.md) before adding a new style.
 
 ## Design Principles
 
