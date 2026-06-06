@@ -90,13 +90,13 @@ const presetCatalog = [
     useCase: 'Architecture decisions, strategy notes, product trade-offs',
     spec: {
       style: 'compass',
-      title: 'Decision Memo',
-      summary: 'Choose the path that lowers operational risk while preserving room for future iteration.',
+      title: 'Decision',
+      summary: 'Choose the safer path first. Keep the broader option reversible.',
       content: [
-        { title: 'Context', text: 'The current approach works but creates repeated manual coordination.' },
-        { title: 'Choice', text: 'Adopt the simpler path first and keep the advanced option reversible.' },
-        { title: 'Tradeoff', text: 'The first version is less flexible but easier to operate.' },
-        { title: 'Next', text: 'Ship the small version, measure usage, then revisit the broader design.' }
+        { title: 'Context', text: 'The current path works, but needs repeated coordination.' },
+        { title: 'Choice', text: 'Ship the simpler path first.' },
+        { title: 'Tradeoff', text: 'Less flexible, easier to operate.' },
+        { title: 'Next', text: 'Measure usage, then revisit scope.' }
       ],
       footer: 'Decision Memo'
     }
@@ -191,13 +191,13 @@ const presetCatalog = [
     useCase: 'Principles, quotes, sharp takeaways, short social posts',
     spec: {
       style: 'pulse',
-      title: 'Sharp Takeaway',
-      summary: 'Make the important thing impossible to miss, then remove everything that competes with it.',
+      title: 'Takeaway',
+      summary: 'Make the important thing impossible to miss. Remove everything else.',
       content: [
         { title: 'Context', text: 'The card carries one central idea.' },
         { title: 'Rule', text: 'Shorter copy creates stronger rhythm.' },
-        { title: 'Use', text: 'Best for quotes, principles, and decisive statements.' },
-        { title: 'Avoid', text: 'Do not pack a full report into this format.' }
+        { title: 'Use', text: 'Best for quotes and principles.' },
+        { title: 'Avoid', text: 'Do not pack in a full report.' }
       ],
       footer: 'PosterForge'
     }

@@ -53,7 +53,7 @@ function renderArena(spec) {
       <article className="relative h-full overflow-hidden border border-[#34302a] p-12">
         <header className="max-w-[830px]">
           <div className="font-mono text-[18px] font-black uppercase text-[#ffb000]">Arena</div>
-          <h1 className="mt-7 max-h-[260px] overflow-hidden text-[98px] font-black leading-[0.9]">${spec.title}</h1>
+          <h1 className="mt-7 max-h-[280px] overflow-hidden pb-6 text-[94px] font-black leading-[1.06]">${spec.title}</h1>
           <p className="mt-8 max-h-[150px] overflow-hidden text-[38px] font-black leading-[1.18] text-[#ffb000]">${spec.summary}</p>
         </header>
         <section className="absolute bottom-[120px] left-12 right-12 grid grid-cols-2 gap-8">
@@ -364,16 +364,16 @@ function renderBulletin(spec) {
         <div className="absolute right-[42px] top-12 [writing-mode:vertical-rl] font-mono text-[38px] font-black uppercase text-[#ffd92f]">public bulletin</div>
         <header className="absolute left-10 right-[196px] top-10 border-b-[14px] border-[#111] pb-8">
           <div className="font-mono text-[17px] font-black uppercase">Anthony Burrill inspired / public notice</div>
-          <h1 className="mt-8 max-h-[255px] overflow-hidden text-[104px] font-black uppercase leading-[0.82]">${spec.title}</h1>
+          <h1 className="mt-8 max-h-[255px] overflow-hidden pb-4 text-[96px] font-black uppercase leading-[0.86]">${spec.title}</h1>
         </header>
-        <p className="absolute left-10 right-[196px] top-[395px] max-h-[156px] overflow-hidden bg-[#111] p-6 text-[30px] font-black leading-[1.16] text-[#ffd92f]">${spec.summary}</p>
+        <p className="absolute left-10 right-[196px] top-[395px] max-h-[156px] overflow-hidden bg-[#111] p-6 text-[28px] font-black leading-[1.18] text-[#ffd92f]">${spec.summary}</p>
         <section className="absolute bottom-[104px] left-10 right-[196px] top-[570px] grid gap-4">
           ${items.map((item, index) => html`
             <div key=${`${item.title}-${index}`} className=${`${index % 2 === 0 ? 'bg-[#fff7c7]' : 'bg-[#111] text-[#ffd92f]'} grid grid-cols-[84px_1fr] gap-5 p-5`}>
               <div className="font-mono text-[34px] font-black leading-none">0${index + 1}</div>
               <div>
                 <div className="font-mono text-[15px] font-black uppercase">${item.title}</div>
-                <div className="mt-2 max-h-[92px] overflow-hidden text-[22px] font-black leading-[1.14]">${item.text}</div>
+                <div className="mt-2 max-h-[92px] overflow-hidden text-[20px] font-black leading-[1.18]">${item.text}</div>
               </div>
             </div>
           `)}
@@ -490,15 +490,15 @@ function renderPulse(spec) {
         <div className="absolute bottom-8 left-8 right-8 border-b-[16px] border-[#1b090d]" />
         <header className="absolute left-16 right-16 top-[150px] text-center">
           <div className="font-mono text-[16px] font-black uppercase">Sagmeister inspired / typographic manifesto</div>
-          <h1 className="mx-auto mt-12 max-h-[360px] max-w-[850px] overflow-hidden pb-5 text-[118px] font-black uppercase leading-[0.96] tracking-normal">${spec.title}</h1>
-          <p className="mx-auto mt-10 max-h-[136px] max-w-[760px] overflow-hidden text-[34px] font-black leading-[1.18]">${spec.summary}</p>
+          <h1 className="mx-auto mt-12 max-h-[340px] max-w-[850px] overflow-hidden pb-8 text-[104px] font-black uppercase leading-[1.02] tracking-normal">${spec.title}</h1>
+          <p className="mx-auto mt-9 max-h-[132px] max-w-[760px] overflow-hidden text-[30px] font-black leading-[1.22]">${spec.summary}</p>
         </header>
 
         <section className="absolute bottom-[128px] left-16 right-16 grid grid-cols-4 gap-5">
           ${items.map((item, index) => html`
             <div key=${`${item.title}-${index}`} className="border-t-[8px] border-[#1b090d] pt-4">
               <div className="font-mono text-[14px] font-black uppercase">${item.title}</div>
-              <div className="mt-3 text-[21px] font-black leading-[1.18]">${item.text}</div>
+              <div className="mt-3 text-[18px] font-black leading-[1.24]">${item.text}</div>
             </div>
           `)}
         </section>
@@ -545,7 +545,7 @@ function renderPrism(spec) {
         <header className="grid grid-cols-[1fr_110px] gap-8">
           <div>
             <div className="font-mono text-[17px] font-black uppercase text-[#4d96ff]">Prism</div>
-            <h1 className="mt-5 max-h-[220px] overflow-hidden text-[84px] font-black leading-[0.94]">${spec.title}</h1>
+            <h1 className="mt-5 max-h-[235px] overflow-hidden pb-5 text-[80px] font-black leading-[1.08]">${spec.title}</h1>
             <p className="mt-7 max-h-[126px] overflow-hidden text-[34px] font-black leading-[1.22]">${spec.summary}</p>
           </div>
           <div className="grid h-[360px]">
@@ -585,14 +585,14 @@ function renderCompass(spec) {
         <div className="absolute right-12 top-[610px] z-10 font-mono text-[96px] font-black leading-none text-[#42a5ff]">E</div>
         <div className="absolute bottom-12 left-12 z-10 font-mono text-[96px] font-black leading-none text-[#42d27d]">S</div>
         <header className="absolute left-[86px] right-[86px] top-[160px] z-10 text-center">
-          <h1 className="mx-auto max-h-[260px] max-w-[780px] overflow-hidden text-[108px] font-black uppercase leading-[0.8]">${spec.title}</h1>
-          <p className="mx-auto mt-9 max-h-[132px] max-w-[720px] overflow-hidden text-[34px] font-black leading-[1.16] text-[#ffcc19]">${spec.summary}</p>
+          <h1 className="mx-auto max-h-[250px] max-w-[780px] overflow-hidden pb-6 text-[94px] font-black uppercase leading-[0.9]">${spec.title}</h1>
+          <p className="mx-auto mt-8 max-h-[128px] max-w-[720px] overflow-hidden text-[30px] font-black leading-[1.2] text-[#ffcc19]">${spec.summary}</p>
         </header>
         <section>
           ${items.map((item, index) => html`
             <div key=${`${item.title}-${index}`} className=${`${slots[index]} absolute z-10 border-t-[8px] border-[#f4f1e8] pt-4`}>
               <div className="font-mono text-[15px] font-black uppercase text-[#ffcc19]">${item.title}</div>
-              <div className="mt-3 text-[23px] font-bold leading-[1.24]">${item.text}</div>
+              <div className="mt-3 text-[20px] font-bold leading-[1.28]">${item.text}</div>
             </div>
           `)}
         </section>
@@ -631,7 +631,7 @@ function renderEditorial(spec) {
       <article className="relative h-full overflow-hidden bg-[#fffdf7] p-12">
         <header className="border-b border-[#17130f] pb-8">
           <div className="font-sans text-[17px] font-black uppercase text-[#9a2f22]">Editorial</div>
-          <h1 className="mt-6 max-h-[250px] overflow-hidden text-[88px] font-black leading-[0.94]">${spec.title}</h1>
+          <h1 className="mt-6 max-h-[270px] overflow-hidden pb-5 text-[84px] font-black leading-[1.08]">${spec.title}</h1>
           <p className="mt-8 max-h-[150px] overflow-hidden text-[39px] font-black leading-[1.18]">${spec.summary}</p>
         </header>
         <section className="mt-9 grid grid-cols-[1fr_260px] gap-8">
