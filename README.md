@@ -254,6 +254,8 @@ posterforge templates
 
 Each style has a conservative text budget. Agents should check it before rendering, because these templates are fixed poster layouts and long text will damage the design.
 
+The renderer also applies a text-fit guard before screenshot export: constrained text blocks get safer wrapping and small automatic font-size reductions when they would otherwise overflow. This is a protection layer, not a replacement for concise input.
+
 See [docs/TEXT_BUDGETS.md](docs/TEXT_BUDGETS.md) for per-style limits.
 
 Short version:

@@ -68,6 +68,8 @@ Restart the gateway or agent runtime if it caches skill files at startup.
 
 Agents should not announce that they are using the skill. They should simply return the generated image.
 
+The renderer has an automatic text-fit guard for constrained poster text blocks, but agents should still keep the input concise. If a card looks crowded, shorten the spec instead of relying on the guard to rescue long content.
+
 ## Style Selection
 
 - Alert or incident: `ledger`, `audit`, `terminal`, `noir`, `dossier`.
