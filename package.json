@@ -28,6 +28,7 @@
     "render:product": "node ./bin/posterforge.mjs render ./examples/product-update.json --out ./dist/product-update.png",
     "render:all": "pnpm render:alert && pnpm render:experiment && pnpm render:battle && pnpm render:incident && pnpm render:weekly && pnpm render:product",
     "generate:previews": "node ./scripts/generate-previews.mjs",
+    "lint": "node ./scripts/lint.mjs",
     "check": "node ./bin/posterforge.mjs render ./examples/battle-ranking.json --out ./dist/check.png && node ./bin/posterforge.mjs templates"
   },
   "keywords": [

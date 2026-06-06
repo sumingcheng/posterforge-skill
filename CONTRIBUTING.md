@@ -7,6 +7,7 @@ PosterForge Skill is designed to be easy to extend. The best contribution is a u
 ```bash
 pnpm install
 pnpm build
+pnpm lint
 pnpm check
 pnpm dev
 ```
@@ -24,7 +25,7 @@ pnpm generate:previews
 3. Add a conservative text budget in `docs/TEXT_BUDGETS.md`.
 4. Add the style to `docs/CARD_SPEC.md`.
 5. Run `pnpm generate:previews`.
-6. Run `pnpm build` and `pnpm check`.
+6. Run `pnpm lint`, `pnpm build`, and `pnpm check`.
 
 ## Template Rules
 
@@ -43,6 +44,7 @@ Preview images live in `docs/previews/` and are intentionally generated at `scal
 ## Pull Request Checklist
 
 - `pnpm build` passes.
+- `pnpm lint` passes.
 - `pnpm check` passes.
 - `pnpm generate:previews` was run if templates changed.
 - README or docs were updated if the public API changed.
