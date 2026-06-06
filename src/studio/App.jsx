@@ -2,76 +2,133 @@ import React, { useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import '../styles.css';
 import { normalizeSpec } from '../schema/card-spec.mjs';
-import { getTemplate } from '../templates/registry.mjs';
+import { getTemplate, listTemplates } from '../templates/registry.mjs';
 import { buildPresetSpec, listPresets } from '../presets/catalog.mjs';
+import alertFixture from '../../examples/alert.json';
+import battleFixture from '../../examples/battle-ranking.json';
+import experimentFixture from '../../examples/experiment.json';
+
+const fixtures = {
+  arena: { ...battleFixture, style: 'arena', template: undefined },
+  ledger: { ...alertFixture, style: 'ledger', template: undefined },
+  signal: { ...experimentFixture, style: 'signal', template: undefined }
+};
+
+function fixtureForStyle(id, templates) {
+  if (fixtures[id]) return fixtures[id];
+  const template = templates.find((item) => item.id === id || item.styleName === id || item.aliases?.includes(id));
+  if (['arena', 'podium', 'sprint', 'delta', 'matrix', 'heat'].includes(id)) return { ...battleFixture, style: id, template: undefined };
+  if (template?.aliases?.some((alias) => ['alert', 'incident', 'diagnosis', 'case'].includes(alias))) {
+    return { ...alertFixture, style: id, template: undefined };
+  }
+  if (['ledger', 'dossier', 'audit', 'terminal', 'bulletin', 'noir', 'graphite'].includes(id)) {
+    return { ...alertFixture, style: id, template: undefined };
+  }
+  return { ...experimentFixture, style: id, template: undefined };
+}
 
 const CARD_WIDTH = 1080;
 const CARD_HEIGHT = 1440;
 const PREVIEW_SCALE = 0.48;
-const PRESET_GROUPS = [
+const STUDIO_GROUPS = [
   {
-    id: 'operations',
-    label: 'Operations',
+    id: 'preset-operations',
+    label: 'Ops Templates',
     eyebrow: 'Templates',
+    kind: 'preset',
     ids: ['alert-brief', 'incident-review']
   },
   {
-    id: 'reports',
-    label: 'Reports',
+    id: 'preset-reports',
+    label: 'Report Templates',
     eyebrow: 'Templates',
+    kind: 'preset',
     ids: ['weekly-report', 'daily-digest']
   },
   {
-    id: 'product',
-    label: 'Product',
+    id: 'preset-product',
+    label: 'Product Templates',
     eyebrow: 'Templates',
+    kind: 'preset',
     ids: ['launch-notes', 'experiment-result', 'product-feedback']
   },
   {
-    id: 'strategy',
-    label: 'Strategy',
+    id: 'preset-strategy',
+    label: 'Strategy Templates',
     eyebrow: 'Templates',
+    kind: 'preset',
     ids: ['decision-memo']
   },
   {
-    id: 'ranking',
-    label: 'Ranking',
+    id: 'preset-ranking',
+    label: 'Ranking Template',
     eyebrow: 'Templates',
+    kind: 'preset',
     ids: ['ranking-report']
   },
   {
-    id: 'social',
-    label: 'Social',
+    id: 'preset-social',
+    label: 'Social Template',
     eyebrow: 'Templates',
+    kind: 'preset',
     ids: ['quote-card']
+  },
+  {
+    id: 'style-ranking',
+    label: 'Ranking Styles',
+    eyebrow: 'Styles',
+    kind: 'style',
+    ids: ['arena', 'podium', 'sprint', 'delta', 'matrix', 'heat']
+  },
+  {
+    id: 'style-operations',
+    label: 'Ops Styles',
+    eyebrow: 'Styles',
+    kind: 'style',
+    ids: ['ledger', 'dossier', 'audit', 'terminal', 'bulletin', 'noir', 'graphite']
+  },
+  {
+    id: 'style-briefing',
+    label: 'Briefing Styles',
+    eyebrow: 'Styles',
+    kind: 'style',
+    ids: ['signal', 'pulse', 'atlas', 'prism', 'compass', 'mercury', 'editorial']
   }
 ];
 
-function categoryForPreset(id) {
-  return PRESET_GROUPS.find((group) => group.ids.includes(id))?.id || PRESET_GROUPS[0].id;
+function categoryForSelection(selection) {
+  return STUDIO_GROUPS.find((group) => group.kind === selection.kind && group.ids.includes(selection.id))?.id || STUDIO_GROUPS[0].id;
 }
 
-function getInitialPresetId() {
+function getInitialSelection() {
   const parts = window.location.pathname.split('/').filter(Boolean);
   const presetIndex = parts.indexOf('presets');
-  if (presetIndex >= 0 && parts[presetIndex + 1]) return parts[presetIndex + 1];
-  return 'alert-brief';
+  if (presetIndex >= 0 && parts[presetIndex + 1]) return { kind: 'preset', id: parts[presetIndex + 1] };
+  const styleIndex = parts.indexOf('styles');
+  if (styleIndex >= 0 && parts[styleIndex + 1]) return { kind: 'style', id: parts[styleIndex + 1] };
+  return { kind: 'preset', id: 'alert-brief' };
 }
 
 function StudioApp() {
-  const initialPresetId = getInitialPresetId();
+  const initialSelection = getInitialSelection();
+  const templates = listTemplates();
   const presets = listPresets();
-  const categories = PRESET_GROUPS.map((group) => ({
+  const categories = STUDIO_GROUPS.map((group) => ({
     ...group,
     items: group.ids
-      .map((id) => presets.find((preset) => preset.id === id))
+      .map((id) => (group.kind === 'preset'
+        ? presets.find((preset) => preset.id === id)
+        : templates.find((template) => template.id === id)))
       .filter(Boolean)
   }));
-  const initialPresetSpec = buildPresetSpec(initialPresetId);
-  const [templateId, setTemplateId] = useState(initialPresetSpec.style);
-  const [presetId, setPresetId] = useState(initialPresetId);
-  const [categoryId, setCategoryId] = useState(() => categoryForPreset(initialPresetId));
-  const [fixtureText, setFixtureText] = useState(() => JSON.stringify(initialPresetSpec, null, 2));
+  const initialSpec = initialSelection.kind === 'preset'
+    ? buildPresetSpec(initialSelection.id)
+    : fixtureForStyle(initialSelection.id, templates);
+  const [templateId, setTemplateId] = useState(initialSpec.style);
+  const [selectedKind, setSelectedKind] = useState(initialSelection.kind);
+  const [selectedId, setSelectedId] = useState(initialSelection.id);
+  const [categoryId, setCategoryId] = useState(() => categoryForSelection(initialSelection));
+  const [fixtureText, setFixtureText] = useState(() => JSON.stringify(initialSpec, null, 2));
 
   const parsed = useMemo(() => {
     try {
@@ -87,16 +144,31 @@ function StudioApp() {
 
   function selectPreset(id) {
     const spec = buildPresetSpec(id);
-    setPresetId(id);
+    setSelectedKind('preset');
+    setSelectedId(id);
     setTemplateId(spec.style);
     setFixtureText(JSON.stringify(spec, null, 2));
     window.history.replaceState(null, '', `/presets/${id}`);
   }
 
+  function selectStyle(id) {
+    const spec = fixtureForStyle(id, templates);
+    setSelectedKind('style');
+    setSelectedId(id);
+    setTemplateId(id);
+    setFixtureText(JSON.stringify({ ...spec, style: id }, null, 2));
+    window.history.replaceState(null, '', `/styles/${id}`);
+  }
+
+  function selectItem(category, id) {
+    if (category.kind === 'preset') selectPreset(id);
+    else selectStyle(id);
+  }
+
   function selectCategory(category) {
     setCategoryId(category.id);
-    const currentPreset = category.items.some((item) => item.id === presetId);
-    if (!currentPreset && category.items[0]) selectPreset(category.items[0].id);
+    const currentItem = selectedKind === category.kind && category.items.some((item) => item.id === selectedId);
+    if (!currentItem && category.items[0]) selectItem(category, category.items[0].id);
   }
 
   return (
@@ -130,16 +202,16 @@ function StudioApp() {
           <div className="studio-scroll flex gap-1.5 overflow-x-auto pb-1">
             {activeCategory.items.map((item) => {
               const id = item.id;
-              const isActive = id === presetId;
+              const isActive = activeCategory.kind === selectedKind && id === selectedId;
               return (
                 <button
                   key={id}
                   className={`shrink-0 border px-2.5 py-1.5 text-left transition-colors ${isActive ? 'border-ink-900 bg-ink-900 text-paper-50' : 'border-paper-300 bg-paper-100 text-ink-900 hover:border-ink-300 hover:bg-white'}`}
-                  onClick={() => selectPreset(id)}
+                  onClick={() => selectItem(activeCategory, id)}
                   title={`${item.name}: ${item.description}`}
                 >
                   <div className="text-[12px] font-black leading-tight">{item.name}</div>
-                  <div className="mt-0.5 font-mono text-[8px] font-black uppercase opacity-50">{item.style}</div>
+                  <div className="mt-0.5 font-mono text-[8px] font-black uppercase opacity-50">{activeCategory.kind === 'preset' ? item.style : item.styleName}</div>
                 </button>
               );
             })}

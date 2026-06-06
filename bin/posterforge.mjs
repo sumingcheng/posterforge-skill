@@ -7,7 +7,7 @@ import { renderCardDocument } from '../src/render/html.mjs';
 import { listTemplates } from '../src/templates/registry.mjs';
 import { buildPresetSpec, listPresets } from '../src/presets/catalog.mjs';
 
-const VERSION = '0.3.3';
+const VERSION = '0.3.4';
 const DEFAULT_SCALE = 3;
 const ROOT_DIR = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
