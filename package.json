@@ -1,6 +1,6 @@
 {
   "name": "posterforge",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Open-source skill and CLI for generating high-quality mobile text card posters from JSON.",
   "type": "module",
   "packageManager": "pnpm@10.12.1",
@@ -45,7 +45,7 @@
     "render:all": "pnpm render:alert && pnpm render:experiment && pnpm render:battle && pnpm render:incident && pnpm render:weekly && pnpm render:product",
     "generate:previews": "node ./scripts/generate-previews.mjs",
     "lint": "node ./scripts/lint.mjs",
-    "check": "node ./bin/posterforge.mjs render ./examples/battle-ranking.json --out ./dist/check.png && node ./bin/posterforge.mjs render --style signal --title \"Service Health\" --summary \"Errors are down and latency is stable.\" --item \"Impact: One provider route was affected.\" --item \"Action: Keep fallback enabled.\" --out ./dist/check-inline.png && node ./bin/posterforge.mjs spec --style ledger --title \"Alert Brief\" --summary \"Kong 4xx increased.\" --item \"Cause: Upstream returned model-not-found.\" --out ./dist/check-spec.json && node ./bin/posterforge.mjs templates",
+    "check": "node ./bin/posterforge.mjs render ./examples/battle-ranking.json --out ./dist/check.png && node ./bin/posterforge.mjs render --style signal --title \"Service Health\" --summary \"Errors are down and latency is stable.\" --item \"Impact: One provider route was affected.\" --item \"Action: Keep fallback enabled.\" --out ./dist/check-inline.png && node ./bin/posterforge.mjs spec --style ledger --title \"Alert Brief\" --summary \"Kong 4xx increased.\" --item \"Cause: Upstream returned model-not-found.\" --out ./dist/check-spec.json && node ./bin/posterforge.mjs skill-path && node ./bin/posterforge.mjs templates",
     "pack:dry": "npm pack --dry-run"
   },
   "keywords": [
