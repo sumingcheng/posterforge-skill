@@ -130,9 +130,9 @@ Preset 封面图廊：
 | --- | --- | --- |
 | ![战报排行 preset 预览](docs/preset-previews/ranking-report.png) | ![用户反馈 preset 预览](docs/preset-previews/product-feedback.png) | ![日报 preset 预览](docs/preset-previews/daily-digest.png) |
 
-| 金句卡 |
-| --- |
-| ![金句卡 preset 预览](docs/preset-previews/quote-card.png) |
+| 金句卡 | &nbsp; | &nbsp; |
+| --- | --- | --- |
+| ![金句卡 preset 预览](docs/preset-previews/quote-card.png) | &nbsp; | &nbsp; |
 
 完整说明见 [docs/PRESETS.md](docs/PRESETS.md)。
 
@@ -173,9 +173,9 @@ pnpm render:product
 | --- | --- | --- |
 | ![Atlas 预览](docs/previews/atlas.png) | ![Prism 预览](docs/previews/prism.png) | ![Compass 预览](docs/previews/compass.png) |
 
-| Mercury | Editorial |
-| --- | --- |
-| ![Mercury 预览](docs/previews/mercury.png) | ![Editorial 预览](docs/previews/editorial.png) |
+| Mercury | Editorial | &nbsp; |
+| --- | --- | --- |
+| ![Mercury 预览](docs/previews/mercury.png) | ![Editorial 预览](docs/previews/editorial.png) | &nbsp; |
 
 ## 安装
 

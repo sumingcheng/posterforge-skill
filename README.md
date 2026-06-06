@@ -130,9 +130,9 @@ Preset cover gallery:
 | --- | --- | --- |
 | ![Ranking Report preset preview](docs/preset-previews/ranking-report.png) | ![Product Feedback preset preview](docs/preset-previews/product-feedback.png) | ![Daily Digest preset preview](docs/preset-previews/daily-digest.png) |
 
-| Quote Card |
-| --- |
-| ![Quote Card preset preview](docs/preset-previews/quote-card.png) |
+| Quote Card | &nbsp; | &nbsp; |
+| --- | --- | --- |
+| ![Quote Card preset preview](docs/preset-previews/quote-card.png) | &nbsp; | &nbsp; |
 
 See [docs/PRESETS.md](docs/PRESETS.md) for the full preset guide.
 
@@ -173,9 +173,9 @@ These previews are generated from the same JSON shape with `pnpm generate:previe
 | --- | --- | --- |
 | ![Atlas preview](docs/previews/atlas.png) | ![Prism preview](docs/previews/prism.png) | ![Compass preview](docs/previews/compass.png) |
 
-| Mercury | Editorial |
-| --- | --- |
-| ![Mercury preview](docs/previews/mercury.png) | ![Editorial preview](docs/previews/editorial.png) |
+| Mercury | Editorial | &nbsp; |
+| --- | --- | --- |
+| ![Mercury preview](docs/previews/mercury.png) | ![Editorial preview](docs/previews/editorial.png) | &nbsp; |
 
 ## Install
 
