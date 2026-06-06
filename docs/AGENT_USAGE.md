@@ -7,13 +7,19 @@ PosterForge Skill is built for agents, bots, and automation workflows that need 
 Install the CLI:
 
 ```bash
-npm install -g github:sumingcheng/posterforge-skill
+npm install -g posterforge
 ```
 
 Then expose `skill/SKILL.md` to your agent runtime as a skill definition. The runtime should be able to call:
 
 ```bash
 posterforge render spec.json --out output.png
+```
+
+For quick one-off cards, the runtime can also call the CLI without writing a JSON file first:
+
+```bash
+posterforge render --style signal --title "Service Health" --summary "Errors are down." --item "Impact: One route was affected." --item "Action: Keep fallback enabled." --out output.png
 ```
 
 For source-based usage:

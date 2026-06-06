@@ -19,7 +19,7 @@ PosterForge Skill is not a design app, image generation model, PPT tool, or caro
 ## 30-Second Start
 
 ```bash
-npm install -g github:sumingcheng/posterforge-skill
+npm install -g posterforge
 ```
 
 Create `card.json`:
@@ -45,6 +45,30 @@ posterforge render card.json --out card.png
 ```
 
 By default this exports a `3240x4320` PNG from a `1080x1440` logical canvas.
+
+For one-off usage, skip the JSON file and pass the card fields directly:
+
+```bash
+posterforge render \
+  --style signal \
+  --title "Service Health" \
+  --summary "Errors dropped after the routing fix. Latency is back within the normal range." \
+  --item "Impact: Only one provider route was affected." \
+  --item "Action: Keep the fallback route enabled and monitor for one hour." \
+  --item "Status: Traffic is stable and no new alerts are firing." \
+  --out card.png
+```
+
+Generate a reusable JSON spec from quick parameters:
+
+```bash
+posterforge spec \
+  --style ledger \
+  --title "Alert Brief" \
+  --summary "Kong 4xx increased on one route." \
+  --item "Cause: Upstream returned model-not-found." \
+  --out card.json
+```
 
 ## Why PosterForge
 
@@ -121,10 +145,10 @@ Install directly from GitHub:
 npm install -g github:sumingcheng/posterforge-skill
 ```
 
-Install from npm after a package release:
+Install from npm:
 
 ```bash
-pnpm add -g posterforge-skill
+npm install -g posterforge
 ```
 
 Use the repository directly:
@@ -141,6 +165,32 @@ Expose the local CLI while developing:
 
 ```bash
 npm install -g .
+posterforge templates
+```
+
+## CLI
+
+Render from a JSON spec:
+
+```bash
+posterforge render card.json --out card.png
+```
+
+Render from direct parameters:
+
+```bash
+posterforge render --style mercury --title "Launch Notes" --summary "The release is ready." --item "Scope: Mobile onboarding." --item "Next: Watch activation." --out launch.png
+```
+
+Create a starter spec:
+
+```bash
+posterforge init --style signal --out card.json
+```
+
+List available styles:
+
+```bash
 posterforge templates
 ```
 
@@ -239,6 +289,8 @@ pnpm generate:previews
 ```
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) before adding a new style.
+
+See [docs/PUBLISHING.md](docs/PUBLISHING.md) for npm release instructions.
 
 ## Design Principles
 
