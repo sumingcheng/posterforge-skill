@@ -12,9 +12,9 @@ Turn quick CLI parameters or a tiny JSON spec into polished mobile-first text po
 
 PosterForge Skill is not a design app, image generation model, PPT tool, or carousel builder. It is an agent-friendly text poster renderer: direct command-line input, deterministic layout, high-DPI PNG output, and reusable visual systems.
 
-| Alert Brief | Incident Review | Ranking Report | Product Feedback |
-| --- | --- | --- | --- |
-| ![Alert Brief preset preview](docs/preset-previews/alert-brief.png) | ![Incident Review preset preview](docs/preset-previews/incident-review.png) | ![Ranking Report preset preview](docs/preset-previews/ranking-report.png) | ![Product Feedback preset preview](docs/preset-previews/product-feedback.png) |
+| Alert Brief | Incident Review | Product Feedback |
+| --- | --- | --- |
+| ![Alert Brief preset preview](docs/preset-previews/alert-brief.png) | ![Incident Review preset preview](docs/preset-previews/incident-review.png) | ![Product Feedback preset preview](docs/preset-previews/product-feedback.png) |
 
 ## 30-Second Start
 
@@ -118,17 +118,21 @@ Built-in presets:
 
 Preset cover gallery:
 
-| Alert Brief | Incident Review | Weekly Report | Launch Notes |
-| --- | --- | --- | --- |
-| ![Alert Brief preset preview](docs/preset-previews/alert-brief.png) | ![Incident Review preset preview](docs/preset-previews/incident-review.png) | ![Weekly Report preset preview](docs/preset-previews/weekly-report.png) | ![Launch Notes preset preview](docs/preset-previews/launch-notes.png) |
+| Alert Brief | Incident Review | Weekly Report |
+| --- | --- | --- |
+| ![Alert Brief preset preview](docs/preset-previews/alert-brief.png) | ![Incident Review preset preview](docs/preset-previews/incident-review.png) | ![Weekly Report preset preview](docs/preset-previews/weekly-report.png) |
 
-| Decision Memo | Experiment Result | Ranking Report | Product Feedback |
-| --- | --- | --- | --- |
-| ![Decision Memo preset preview](docs/preset-previews/decision-memo.png) | ![Experiment Result preset preview](docs/preset-previews/experiment-result.png) | ![Ranking Report preset preview](docs/preset-previews/ranking-report.png) | ![Product Feedback preset preview](docs/preset-previews/product-feedback.png) |
+| Launch Notes | Decision Memo | Experiment Result |
+| --- | --- | --- |
+| ![Launch Notes preset preview](docs/preset-previews/launch-notes.png) | ![Decision Memo preset preview](docs/preset-previews/decision-memo.png) | ![Experiment Result preset preview](docs/preset-previews/experiment-result.png) |
 
-| Daily Digest | Quote Card |
-| --- | --- |
-| ![Daily Digest preset preview](docs/preset-previews/daily-digest.png) | ![Quote Card preset preview](docs/preset-previews/quote-card.png) |
+| Ranking Report | Product Feedback | Daily Digest |
+| --- | --- | --- |
+| ![Ranking Report preset preview](docs/preset-previews/ranking-report.png) | ![Product Feedback preset preview](docs/preset-previews/product-feedback.png) | ![Daily Digest preset preview](docs/preset-previews/daily-digest.png) |
+
+| Quote Card |
+| --- |
+| ![Quote Card preset preview](docs/preset-previews/quote-card.png) |
 
 See [docs/PRESETS.md](docs/PRESETS.md) for the full preset guide.
 
@@ -145,25 +149,33 @@ pnpm render:product
 
 These previews are generated from the same JSON shape with `pnpm generate:previews`.
 
-| Arena | Podium | Sprint | Delta |
-| --- | --- | --- | --- |
-| ![Arena preview](docs/previews/arena.png) | ![Podium preview](docs/previews/podium.png) | ![Sprint preview](docs/previews/sprint.png) | ![Delta preview](docs/previews/delta.png) |
+| Arena | Podium | Sprint |
+| --- | --- | --- |
+| ![Arena preview](docs/previews/arena.png) | ![Podium preview](docs/previews/podium.png) | ![Sprint preview](docs/previews/sprint.png) |
 
-| Matrix | Heat | Ledger | Dossier |
-| --- | --- | --- | --- |
-| ![Matrix preview](docs/previews/matrix.png) | ![Heat preview](docs/previews/heat.png) | ![Ledger preview](docs/previews/ledger.png) | ![Dossier preview](docs/previews/dossier.png) |
+| Delta | Matrix | Heat |
+| --- | --- | --- |
+| ![Delta preview](docs/previews/delta.png) | ![Matrix preview](docs/previews/matrix.png) | ![Heat preview](docs/previews/heat.png) |
 
-| Audit | Terminal | Bulletin | Noir |
-| --- | --- | --- | --- |
-| ![Audit preview](docs/previews/audit.png) | ![Terminal preview](docs/previews/terminal.png) | ![Bulletin preview](docs/previews/bulletin.png) | ![Noir preview](docs/previews/noir.png) |
+| Ledger | Dossier | Audit |
+| --- | --- | --- |
+| ![Ledger preview](docs/previews/ledger.png) | ![Dossier preview](docs/previews/dossier.png) | ![Audit preview](docs/previews/audit.png) |
 
-| Graphite | Signal | Pulse | Atlas |
-| --- | --- | --- | --- |
-| ![Graphite preview](docs/previews/graphite.png) | ![Signal preview](docs/previews/signal.png) | ![Pulse preview](docs/previews/pulse.png) | ![Atlas preview](docs/previews/atlas.png) |
+| Terminal | Bulletin | Noir |
+| --- | --- | --- |
+| ![Terminal preview](docs/previews/terminal.png) | ![Bulletin preview](docs/previews/bulletin.png) | ![Noir preview](docs/previews/noir.png) |
 
-| Prism | Compass | Mercury | Editorial |
-| --- | --- | --- | --- |
-| ![Prism preview](docs/previews/prism.png) | ![Compass preview](docs/previews/compass.png) | ![Mercury preview](docs/previews/mercury.png) | ![Editorial preview](docs/previews/editorial.png) |
+| Graphite | Signal | Pulse |
+| --- | --- | --- |
+| ![Graphite preview](docs/previews/graphite.png) | ![Signal preview](docs/previews/signal.png) | ![Pulse preview](docs/previews/pulse.png) |
+
+| Atlas | Prism | Compass |
+| --- | --- | --- |
+| ![Atlas preview](docs/previews/atlas.png) | ![Prism preview](docs/previews/prism.png) | ![Compass preview](docs/previews/compass.png) |
+
+| Mercury | Editorial |
+| --- | --- |
+| ![Mercury preview](docs/previews/mercury.png) | ![Editorial preview](docs/previews/editorial.png) |
 
 ## Install
 

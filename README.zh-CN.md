@@ -12,9 +12,9 @@
 
 PosterForge Skill 不是设计软件，不是图片生成模型，不是 PPT 工具，也不是多图轮播系统。它是一个面向 Agent 的文字海报渲染器：支持直接命令行输入，版式稳定，本地渲染，输出高分辨率 PNG。
 
-| 告警简报 | 事故复盘 | 战报排行 | 用户反馈 |
-| --- | --- | --- | --- |
-| ![告警简报 preset 预览](docs/preset-previews/alert-brief.png) | ![事故复盘 preset 预览](docs/preset-previews/incident-review.png) | ![战报排行 preset 预览](docs/preset-previews/ranking-report.png) | ![用户反馈 preset 预览](docs/preset-previews/product-feedback.png) |
+| 告警简报 | 事故复盘 | 用户反馈 |
+| --- | --- | --- |
+| ![告警简报 preset 预览](docs/preset-previews/alert-brief.png) | ![事故复盘 preset 预览](docs/preset-previews/incident-review.png) | ![用户反馈 preset 预览](docs/preset-previews/product-feedback.png) |
 
 ## 30 秒开始
 
@@ -118,17 +118,21 @@ posterforge render --preset launch-notes --style mercury --out launch.png
 
 Preset 封面图廊：
 
-| 告警简报 | 事故复盘 | 周报 | 发布说明 |
-| --- | --- | --- | --- |
-| ![告警简报 preset 预览](docs/preset-previews/alert-brief.png) | ![事故复盘 preset 预览](docs/preset-previews/incident-review.png) | ![周报 preset 预览](docs/preset-previews/weekly-report.png) | ![发布说明 preset 预览](docs/preset-previews/launch-notes.png) |
+| 告警简报 | 事故复盘 | 周报 |
+| --- | --- | --- |
+| ![告警简报 preset 预览](docs/preset-previews/alert-brief.png) | ![事故复盘 preset 预览](docs/preset-previews/incident-review.png) | ![周报 preset 预览](docs/preset-previews/weekly-report.png) |
 
-| 决策备忘 | 实验结果 | 战报排行 | 用户反馈 |
-| --- | --- | --- | --- |
-| ![决策备忘 preset 预览](docs/preset-previews/decision-memo.png) | ![实验结果 preset 预览](docs/preset-previews/experiment-result.png) | ![战报排行 preset 预览](docs/preset-previews/ranking-report.png) | ![用户反馈 preset 预览](docs/preset-previews/product-feedback.png) |
+| 发布说明 | 决策备忘 | 实验结果 |
+| --- | --- | --- |
+| ![发布说明 preset 预览](docs/preset-previews/launch-notes.png) | ![决策备忘 preset 预览](docs/preset-previews/decision-memo.png) | ![实验结果 preset 预览](docs/preset-previews/experiment-result.png) |
 
-| 日报 | 金句卡 |
-| --- | --- |
-| ![日报 preset 预览](docs/preset-previews/daily-digest.png) | ![金句卡 preset 预览](docs/preset-previews/quote-card.png) |
+| 战报排行 | 用户反馈 | 日报 |
+| --- | --- | --- |
+| ![战报排行 preset 预览](docs/preset-previews/ranking-report.png) | ![用户反馈 preset 预览](docs/preset-previews/product-feedback.png) | ![日报 preset 预览](docs/preset-previews/daily-digest.png) |
+
+| 金句卡 |
+| --- |
+| ![金句卡 preset 预览](docs/preset-previews/quote-card.png) |
 
 完整说明见 [docs/PRESETS.md](docs/PRESETS.md)。
 
@@ -145,25 +149,33 @@ pnpm render:product
 
 下面这些预览图都来自同一份 JSON 结构，可以用 `pnpm generate:previews` 重新生成。
 
-| Arena | Podium | Sprint | Delta |
-| --- | --- | --- | --- |
-| ![Arena 预览](docs/previews/arena.png) | ![Podium 预览](docs/previews/podium.png) | ![Sprint 预览](docs/previews/sprint.png) | ![Delta 预览](docs/previews/delta.png) |
+| Arena | Podium | Sprint |
+| --- | --- | --- |
+| ![Arena 预览](docs/previews/arena.png) | ![Podium 预览](docs/previews/podium.png) | ![Sprint 预览](docs/previews/sprint.png) |
 
-| Matrix | Heat | Ledger | Dossier |
-| --- | --- | --- | --- |
-| ![Matrix 预览](docs/previews/matrix.png) | ![Heat 预览](docs/previews/heat.png) | ![Ledger 预览](docs/previews/ledger.png) | ![Dossier 预览](docs/previews/dossier.png) |
+| Delta | Matrix | Heat |
+| --- | --- | --- |
+| ![Delta 预览](docs/previews/delta.png) | ![Matrix 预览](docs/previews/matrix.png) | ![Heat 预览](docs/previews/heat.png) |
 
-| Audit | Terminal | Bulletin | Noir |
-| --- | --- | --- | --- |
-| ![Audit 预览](docs/previews/audit.png) | ![Terminal 预览](docs/previews/terminal.png) | ![Bulletin 预览](docs/previews/bulletin.png) | ![Noir 预览](docs/previews/noir.png) |
+| Ledger | Dossier | Audit |
+| --- | --- | --- |
+| ![Ledger 预览](docs/previews/ledger.png) | ![Dossier 预览](docs/previews/dossier.png) | ![Audit 预览](docs/previews/audit.png) |
 
-| Graphite | Signal | Pulse | Atlas |
-| --- | --- | --- | --- |
-| ![Graphite 预览](docs/previews/graphite.png) | ![Signal 预览](docs/previews/signal.png) | ![Pulse 预览](docs/previews/pulse.png) | ![Atlas 预览](docs/previews/atlas.png) |
+| Terminal | Bulletin | Noir |
+| --- | --- | --- |
+| ![Terminal 预览](docs/previews/terminal.png) | ![Bulletin 预览](docs/previews/bulletin.png) | ![Noir 预览](docs/previews/noir.png) |
 
-| Prism | Compass | Mercury | Editorial |
-| --- | --- | --- | --- |
-| ![Prism 预览](docs/previews/prism.png) | ![Compass 预览](docs/previews/compass.png) | ![Mercury 预览](docs/previews/mercury.png) | ![Editorial 预览](docs/previews/editorial.png) |
+| Graphite | Signal | Pulse |
+| --- | --- | --- |
+| ![Graphite 预览](docs/previews/graphite.png) | ![Signal 预览](docs/previews/signal.png) | ![Pulse 预览](docs/previews/pulse.png) |
+
+| Atlas | Prism | Compass |
+| --- | --- | --- |
+| ![Atlas 预览](docs/previews/atlas.png) | ![Prism 预览](docs/previews/prism.png) | ![Compass 预览](docs/previews/compass.png) |
+
+| Mercury | Editorial |
+| --- | --- |
+| ![Mercury 预览](docs/previews/mercury.png) | ![Editorial 预览](docs/previews/editorial.png) |
 
 ## 安装
 
