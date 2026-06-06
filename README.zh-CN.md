@@ -19,7 +19,7 @@ PosterForge Skill 不是设计软件，不是图片生成模型，不是 PPT 工
 ## 30 秒开始
 
 ```bash
-npm install -g github:sumingcheng/posterforge-skill
+npm install -g posterforge
 ```
 
 创建 `card.json`：
@@ -45,6 +45,30 @@ posterforge render card.json --out card.png
 ```
 
 默认逻辑画布是 `1080x1440`，导出为 `3x`，最终 PNG 尺寸是 `3240x4320`。
+
+临时使用时，也可以不写 JSON，直接传参数：
+
+```bash
+posterforge render \
+  --style signal \
+  --title "Service Health" \
+  --summary "Errors dropped after the routing fix. Latency is back within the normal range." \
+  --item "Impact: Only one provider route was affected." \
+  --item "Action: Keep the fallback route enabled and monitor for one hour." \
+  --item "Status: Traffic is stable and no new alerts are firing." \
+  --out card.png
+```
+
+也可以先用参数生成一份可复用 JSON：
+
+```bash
+posterforge spec \
+  --style ledger \
+  --title "Alert Brief" \
+  --summary "Kong 4xx increased on one route." \
+  --item "Cause: Upstream returned model-not-found." \
+  --out card.json
+```
 
 ## 为什么用 PosterForge
 
@@ -121,10 +145,10 @@ pnpm render:product
 npm install -g github:sumingcheng/posterforge-skill
 ```
 
-发布到 npm 后也可以这样安装：
+从 npm 安装：
 
 ```bash
-pnpm add -g posterforge-skill
+npm install -g posterforge
 ```
 
 直接从源码使用：
@@ -141,6 +165,32 @@ node ./bin/posterforge.mjs render ./examples/alert.json --out ./dist/alert.png
 
 ```bash
 npm install -g .
+posterforge templates
+```
+
+## CLI
+
+从 JSON 渲染：
+
+```bash
+posterforge render card.json --out card.png
+```
+
+直接传参数渲染：
+
+```bash
+posterforge render --style mercury --title "Launch Notes" --summary "The release is ready." --item "Scope: Mobile onboarding." --item "Next: Watch activation." --out launch.png
+```
+
+创建 starter spec：
+
+```bash
+posterforge init --style signal --out card.json
+```
+
+列出所有风格：
+
+```bash
 posterforge templates
 ```
 
@@ -239,6 +289,8 @@ pnpm generate:previews
 ```
 
 新增主题前先看 [CONTRIBUTING.md](CONTRIBUTING.md)。
+
+npm 发布流程见 [docs/PUBLISHING.md](docs/PUBLISHING.md)。
 
 ## 设计原则
 

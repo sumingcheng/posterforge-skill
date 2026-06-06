@@ -65,6 +65,14 @@ posterforge render spec.json --out output.png
 8. If text is clipped, crowded, or visually awkward, shorten the JSON and rerender.
 9. Send or return `output.png`.
 
+For very short cards, it is also acceptable to skip the temporary JSON file and pass fields directly:
+
+```bash
+posterforge render --style signal --title "Service Health" --summary "Errors are down." --item "Impact: One route was affected." --item "Action: Keep fallback enabled." --out output.png
+```
+
+Use repeated `--item "Title: text"` flags for content points. Prefer the JSON path for longer source material because it is easier to inspect and revise.
+
 ## CLI Fallback
 
 If `posterforge` is not available in `PATH`, try the source checkout:
