@@ -37,6 +37,38 @@ posterforge render card.json --out card.png
 
 默认逻辑画布是 `1080x1440`，导出为 `3x`，最终 PNG 尺寸是 `3240x4320`。
 
+## 主题图廊
+
+下面这些预览图都来自同一份 JSON 结构，可以用 `pnpm generate:previews` 重新生成。
+
+| Arena | Podium | Sprint |
+| --- | --- | --- |
+| ![Arena 预览](docs/previews/arena.png) | ![Podium 预览](docs/previews/podium.png) | ![Sprint 预览](docs/previews/sprint.png) |
+
+| Delta | Matrix | Heat |
+| --- | --- | --- |
+| ![Delta 预览](docs/previews/delta.png) | ![Matrix 预览](docs/previews/matrix.png) | ![Heat 预览](docs/previews/heat.png) |
+
+| Ledger | Dossier | Audit |
+| --- | --- | --- |
+| ![Ledger 预览](docs/previews/ledger.png) | ![Dossier 预览](docs/previews/dossier.png) | ![Audit 预览](docs/previews/audit.png) |
+
+| Terminal | Bulletin | Noir |
+| --- | --- | --- |
+| ![Terminal 预览](docs/previews/terminal.png) | ![Bulletin 预览](docs/previews/bulletin.png) | ![Noir 预览](docs/previews/noir.png) |
+
+| Graphite | Signal | Pulse |
+| --- | --- | --- |
+| ![Graphite 预览](docs/previews/graphite.png) | ![Signal 预览](docs/previews/signal.png) | ![Pulse 预览](docs/previews/pulse.png) |
+
+| Atlas | Prism | Compass |
+| --- | --- | --- |
+| ![Atlas 预览](docs/previews/atlas.png) | ![Prism 预览](docs/previews/prism.png) | ![Compass 预览](docs/previews/compass.png) |
+
+| Mercury | Editorial |
+| --- | --- |
+| ![Mercury 预览](docs/previews/mercury.png) | ![Editorial 预览](docs/previews/editorial.png) |
+
 ## 安装
 
 环境要求：
@@ -220,5 +252,3 @@ pnpm render:battle
 ## License
 
 MIT。见 [LICENSE](LICENSE)。
-
-MIT

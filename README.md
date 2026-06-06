@@ -37,6 +37,38 @@ posterforge render card.json --out card.png
 
 By default this exports a `3240x4320` PNG from a `1080x1440` logical canvas.
 
+## Theme Gallery
+
+These previews are generated from the same JSON shape with `pnpm generate:previews`.
+
+| Arena | Podium | Sprint |
+| --- | --- | --- |
+| ![Arena preview](docs/previews/arena.png) | ![Podium preview](docs/previews/podium.png) | ![Sprint preview](docs/previews/sprint.png) |
+
+| Delta | Matrix | Heat |
+| --- | --- | --- |
+| ![Delta preview](docs/previews/delta.png) | ![Matrix preview](docs/previews/matrix.png) | ![Heat preview](docs/previews/heat.png) |
+
+| Ledger | Dossier | Audit |
+| --- | --- | --- |
+| ![Ledger preview](docs/previews/ledger.png) | ![Dossier preview](docs/previews/dossier.png) | ![Audit preview](docs/previews/audit.png) |
+
+| Terminal | Bulletin | Noir |
+| --- | --- | --- |
+| ![Terminal preview](docs/previews/terminal.png) | ![Bulletin preview](docs/previews/bulletin.png) | ![Noir preview](docs/previews/noir.png) |
+
+| Graphite | Signal | Pulse |
+| --- | --- | --- |
+| ![Graphite preview](docs/previews/graphite.png) | ![Signal preview](docs/previews/signal.png) | ![Pulse preview](docs/previews/pulse.png) |
+
+| Atlas | Prism | Compass |
+| --- | --- | --- |
+| ![Atlas preview](docs/previews/atlas.png) | ![Prism preview](docs/previews/prism.png) | ![Compass preview](docs/previews/compass.png) |
+
+| Mercury | Editorial |
+| --- | --- |
+| ![Mercury preview](docs/previews/mercury.png) | ![Editorial preview](docs/previews/editorial.png) |
+
 ## Install
 
 Requirements:
@@ -220,5 +252,3 @@ pnpm render:battle
 ## License
 
 MIT. See [LICENSE](LICENSE).
-
-MIT

@@ -24,6 +24,7 @@
     "render:experiment": "node ./bin/posterforge.mjs render ./examples/experiment.json --out ./dist/experiment.png",
     "render:battle": "node ./bin/posterforge.mjs render ./examples/battle-ranking.json --out ./dist/battle-ranking.png",
     "render:all": "pnpm render:alert && pnpm render:experiment && pnpm render:battle",
+    "generate:previews": "node ./scripts/generate-previews.mjs",
     "check": "node ./bin/posterforge.mjs render ./examples/battle-ranking.json --out ./dist/check.png && node ./bin/posterforge.mjs templates"
   },
   "keywords": [
