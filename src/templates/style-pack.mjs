@@ -240,7 +240,7 @@ function renderLedger(spec) {
         <section className="relative p-10">
           <header className="border-b border-[#b9ad96] pb-7">
             <div className="font-mono text-[16px] font-black uppercase text-[#716757]">${spec.generatedAt}</div>
-            <h1 className="mt-7 max-h-[180px] overflow-hidden text-[76px] font-black leading-[0.98]">${spec.title}</h1>
+            <h1 className="mt-7 max-h-[205px] overflow-hidden pb-3 text-[76px] font-black leading-[1.08]">${spec.title}</h1>
             <p className="mt-5 max-h-[118px] overflow-hidden text-[32px] font-black leading-[1.26] text-[#7b2e21]">${spec.summary}</p>
           </header>
           ${renderPlainItems(spec, {
@@ -464,7 +464,7 @@ function renderSignal(spec) {
         <div className="absolute left-[60px] bottom-[150px] [writing-mode:vertical-rl] font-mono text-[20px] font-black uppercase tracking-normal text-[#fdfdf8]">Signal / Identity System</div>
         <section className="ml-[320px] p-12">
           <div className="font-mono text-[16px] font-black uppercase text-[#0057ff]">Michael Bierut / Pentagram inspired</div>
-          <h1 className="mt-10 max-h-[260px] overflow-hidden text-[98px] font-black leading-[0.86]">${spec.title}</h1>
+          <h1 className="mt-10 max-h-[290px] overflow-hidden pb-4 text-[98px] font-black leading-[1.05]">${spec.title}</h1>
           <p className="mt-8 max-h-[188px] overflow-hidden border-l-[14px] border-[#0057ff] pl-6 text-[30px] font-black leading-[1.18]">${spec.summary}</p>
           <section className="mt-10 grid gap-4">
             ${items.map((item, index) => html`
@@ -490,7 +490,7 @@ function renderPulse(spec) {
         <div className="absolute bottom-8 left-8 right-8 border-b-[16px] border-[#1b090d]" />
         <header className="absolute left-16 right-16 top-[150px] text-center">
           <div className="font-mono text-[16px] font-black uppercase">Sagmeister inspired / typographic manifesto</div>
-          <h1 className="mx-auto mt-12 max-h-[330px] max-w-[850px] overflow-hidden text-[118px] font-black uppercase leading-[0.78] tracking-normal">${spec.title}</h1>
+          <h1 className="mx-auto mt-12 max-h-[360px] max-w-[850px] overflow-hidden pb-5 text-[118px] font-black uppercase leading-[0.96] tracking-normal">${spec.title}</h1>
           <p className="mx-auto mt-10 max-h-[136px] max-w-[760px] overflow-hidden text-[34px] font-black leading-[1.18]">${spec.summary}</p>
         </header>
 
@@ -608,7 +608,7 @@ function renderMercury(spec) {
       <article className="relative mx-auto h-full max-w-[900px] overflow-hidden rounded-[36px] border-[12px] border-[#101820] bg-[#fdfefe] p-9">
         <header className="border-b border-[#cbd5e1] pb-7">
           <div className="font-mono text-[16px] font-black uppercase text-[#3366cc]">Mercury</div>
-          <h1 className="mt-5 max-h-[190px] overflow-hidden text-[74px] font-black leading-[0.94]">${spec.title}</h1>
+          <h1 className="mt-5 max-h-[205px] overflow-hidden pb-3 text-[74px] font-black leading-[1.08]">${spec.title}</h1>
           <p className="mt-6 max-h-[118px] overflow-hidden text-[31px] font-black leading-[1.24] text-[#3366cc]">${spec.summary}</p>
         </header>
         <section className="mt-8 grid gap-4">
