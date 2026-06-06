@@ -8,9 +8,9 @@
 [![Node.js](https://img.shields.io/badge/node-%3E%3D20-339933.svg)](package.json)
 [![pnpm](https://img.shields.io/badge/pnpm-10.12.1-f69220.svg)](package.json)
 
-用一份很小的 JSON，为 Agent、机器人、告警、战报、汇报和社交内容生成高质量移动端文字海报。
+用命令行参数或一份很小的 JSON，为 Agent、机器人、告警、战报、汇报和社交内容生成高质量移动端文字海报。
 
-PosterForge Skill 不是设计软件，不是图片生成模型，不是 PPT 工具，也不是多图轮播系统。它是一个面向 Agent 的文字海报渲染器：输入很小，版式稳定，本地渲染，输出高分辨率 PNG。
+PosterForge Skill 不是设计软件，不是图片生成模型，不是 PPT 工具，也不是多图轮播系统。它是一个面向 Agent 的文字海报渲染器：支持直接命令行输入，版式稳定，本地渲染，输出高分辨率 PNG。
 
 | Ledger | Arena | Signal |
 | --- | --- | --- |
@@ -22,7 +22,22 @@ PosterForge Skill 不是设计软件，不是图片生成模型，不是 PPT 工
 npm install -g posterforge
 ```
 
-创建 `card.json`：
+最快的方式不需要先写 JSON，直接通过命令行传入内容：
+
+```bash
+posterforge render \
+  --style signal \
+  --title "Service Health" \
+  --summary "Errors dropped after the routing fix. Latency is back within the normal range." \
+  --item "Impact: Only one provider route was affected." \
+  --item "Action: Keep the fallback route enabled and monitor for one hour." \
+  --item "Status: Traffic is stable and no new alerts are firing." \
+  --out card.png
+```
+
+默认逻辑画布是 `1080x1440`，导出为 `3x`，最终 PNG 尺寸是 `3240x4320`。
+
+如果需要稳定复用，再创建 `card.json`：
 
 ```json
 {
@@ -42,21 +57,6 @@ npm install -g posterforge
 
 ```bash
 posterforge render card.json --out card.png
-```
-
-默认逻辑画布是 `1080x1440`，导出为 `3x`，最终 PNG 尺寸是 `3240x4320`。
-
-临时使用时，也可以不写 JSON，直接传参数：
-
-```bash
-posterforge render \
-  --style signal \
-  --title "Service Health" \
-  --summary "Errors dropped after the routing fix. Latency is back within the normal range." \
-  --item "Impact: Only one provider route was affected." \
-  --item "Action: Keep the fallback route enabled and monitor for one hour." \
-  --item "Status: Traffic is stable and no new alerts are firing." \
-  --out card.png
 ```
 
 也可以先用参数生成一份可复用 JSON：
