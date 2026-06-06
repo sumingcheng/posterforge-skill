@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
+import { basename, dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { renderCardDocument } from '../src/render/html.mjs';
 import { listTemplates } from '../src/templates/registry.mjs';
+import { buildPresetSpec, listPresets } from '../src/presets/catalog.mjs';
 
-const VERSION = '0.2.0';
+const VERSION = '0.3.0';
 const DEFAULT_SCALE = 3;
 const ROOT_DIR = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -16,20 +17,27 @@ function usage() {
 Usage:
   posterforge render <spec.json> --out <output.png> [--html <debug.html>] [--width 1080] [--height 1440] [--scale 3]
   posterforge render --style <name> --title <text> --summary <text> --item "Title: text" --out <output.png>
+  posterforge render --preset <id> --out <output.png>
   posterforge html <spec.json> --out <output.html>
   posterforge html --style <name> --title <text> --summary <text> --item "Title: text" --out <output.html>
   posterforge spec --style <name> --title <text> --summary <text> --item "Title: text" [--out <spec.json>]
+  posterforge spec --preset <id> [--out <spec.json>]
+  posterforge preset <id> [--style <name>] [--out <spec.json>]
   posterforge init [--style <name>] [--out <spec.json>]
   posterforge skill-path
+  posterforge presets
   posterforge templates
 
 Examples:
   posterforge render examples/alert.json --out dist/alert.png
   posterforge render --style signal --title "Service Health" --summary "Errors are down." --item "Impact: One route was affected." --item "Action: Keep fallback enabled." --out dist/card.png
+  posterforge render --preset alert-brief --out dist/alert.png
   posterforge spec --style ledger --title "Alert Brief" --summary "Kong 4xx increased." --item "Cause: Upstream returned model-not-found." --out card.json
+  posterforge preset incident-review --out incident.json
   posterforge skill-path
   posterforge render examples/alert.json --out dist/alert.png --scale 2
   posterforge html examples/alert.json --out dist/alert.html
+  posterforge presets
   posterforge templates
 
 Defaults:
@@ -113,6 +121,7 @@ function parseArgs(argv) {
     else if (flag === '--height') opts.height = Number(value);
     else if (flag === '--scale') opts.scale = Number(value);
     else if (flag === '--style' || flag === '--template') opts.style = value;
+    else if (flag === '--preset') opts.preset = value;
     else if (flag === '--title') opts.title = value;
     else if (flag === '--summary') opts.summary = value;
     else if (flag === '--subtitle') opts.subtitle = value;
@@ -131,8 +140,9 @@ function parseArgs(argv) {
 
 function validateOptions(opts) {
   if (opts.command === 'templates') return;
+  if (opts.command === 'presets') return;
   if (opts.command === 'skill-path') return;
-  if (opts.command === 'spec' || opts.command === 'init') return;
+  if (opts.command === 'spec' || opts.command === 'init' || opts.command === 'preset') return;
   if (!Number.isFinite(opts.width) || opts.width <= 0) throw new Error('--width must be a positive number.');
   if (!Number.isFinite(opts.height) || opts.height <= 0) throw new Error('--height must be a positive number.');
   if (!Number.isFinite(opts.scale) || opts.scale <= 0 || opts.scale > 4) {
@@ -153,6 +163,7 @@ function hasInlineSpec(opts) {
     opts.subtitle ||
     opts.footer ||
     opts.generatedAt ||
+    opts.preset ||
     opts.content.length
   );
 }
@@ -184,13 +195,30 @@ function starterSpec(style = 'signal') {
 }
 
 function loadSpec(opts) {
-  if (opts.command === 'init') return starterSpec(opts.style);
+  if (opts.command === 'init') {
+    if (opts.preset) {
+      return {
+        ...buildPresetSpec(opts.preset),
+        ...inlineSpec(opts)
+      };
+    }
+    return starterSpec(opts.style);
+  }
+
+  if (opts.command === 'preset') {
+    if (!opts.input) throw new Error('Missing preset id.');
+    return {
+      ...buildPresetSpec(opts.input),
+      ...inlineSpec(opts)
+    };
+  }
 
   if (!opts.input && !hasInlineSpec(opts)) {
-    throw new Error('Missing spec.json input or inline fields such as --style, --title, --summary, and --item.');
+    throw new Error('Missing spec.json input, --preset, or inline fields such as --style, --title, --summary, and --item.');
   }
 
   return {
+    ...(opts.preset ? buildPresetSpec(opts.preset) : {}),
     ...(opts.input ? readSpec(opts.input) : {}),
     ...inlineSpec(opts)
   };
@@ -319,12 +347,20 @@ function main() {
     return;
   }
 
+  if (opts.command === 'presets') {
+    for (const preset of listPresets()) {
+      const aliases = preset.aliases?.length ? ` aliases=${preset.aliases.join(',')}` : '';
+      console.log(`${preset.id}\t${preset.name}\tstyle=${preset.style}\t${preset.description}${aliases}`);
+    }
+    return;
+  }
+
   if (opts.command === 'skill-path') {
     console.log(join(ROOT_DIR, 'skill', 'SKILL.md'));
     return;
   }
 
-  if (opts.command === 'spec' || opts.command === 'init') {
+  if (opts.command === 'spec' || opts.command === 'init' || opts.command === 'preset') {
     writeJson(opts.out, loadSpec(opts));
     return;
   }
@@ -345,7 +381,8 @@ function main() {
     throw new Error(`Unknown command: ${opts.command}`);
   }
 
-  const htmlPath = opts.html || resolve(dirname(resolve(opts.out)), '.posterforge.html');
+  const outPath = resolve(opts.out);
+  const htmlPath = opts.html || resolve(dirname(outPath), `.posterforge-${basename(outPath)}.html`);
   writeFileEnsured(htmlPath, html);
   writeFileEnsured(opts.out, '');
 

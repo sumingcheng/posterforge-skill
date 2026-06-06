@@ -12,15 +12,19 @@ The project is not a PPT engine and not an image-generation system. It renders h
 
 Agents should output a small JSON document instead of editing large HTML templates. The JSON is the contract.
 
-2. Template registry
+2. Scenario presets
+
+Presets live in `src/presets/catalog.mjs`. They are business content blueprints for common workflows such as alert summaries, incident reviews, weekly reports, launch notes, and decision memos. Presets create starter `CardSpec` objects; they do not own visual rendering.
+
+3. Template registry
 
 Styles are registered in `src/templates/style-pack.mjs` and resolved by `src/templates/registry.mjs`. Users select them with short names like `arena`, `terminal`, `prism`, or `mercury`. The CLI and renderer should not change when new styles are added.
 
-3. Style pack
+4. Style pack
 
 Each style is a React/Tailwind render function with metadata: id, aliases, description, and accepted data blocks. Shared helpers are allowed, but a style should not be a cosmetic recolor of another style.
 
-4. Quality first
+5. Quality first
 
 Rendering should preserve typography, hairlines, spacing, and Chinese text clarity. The default export is 3x high-DPI browser rendering. Speed is secondary as long as the command remains predictable.
 
@@ -28,7 +32,9 @@ Rendering should preserve typography, hairlines, spacing, and Chinese text clari
 
 ```text
 source text
-  -> agent compresses into CardSpec JSON
+  -> agent chooses preset when scenario is clear
+  -> preset creates a starter CardSpec
+  -> agent replaces starter text with user facts
   -> schema normalizes fields and legacy aliases
   -> template registry selects a template
   -> React SSR builds HTML
@@ -42,6 +48,7 @@ source text
 ```text
 bin/                         CLI
 src/components/              Reusable React components
+src/presets/                 Scenario preset catalog
 src/schema/                  Public CardSpec normalization
 src/templates/               Style templates and registry
 src/templates/style-pack.mjs  Registered style pack
@@ -63,6 +70,8 @@ The primary workflow is text-first. Agents should compress source material into 
 - content
 
 Legacy structured fields such as `metrics`, `rankings`, and `sections` are accepted for compatibility, but the public workflow should stay simple.
+
+Scenario presets should stay text-first as well. A preset should define the durable content structure for a use case, not a new layout system. If a use case only changes the visual mood, add or select a style instead of creating a new preset.
 
 ## Rendering Quality
 

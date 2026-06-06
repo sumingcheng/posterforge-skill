@@ -37,6 +37,13 @@ For short cards, pass fields directly to the CLI. Use repeated `--item "Title: t
 posterforge render --style signal --title "Service Health" --summary "Errors are down." --item "Impact: One route was affected." --item "Action: Keep fallback enabled." --out output.png
 ```
 
+For common scenarios, start from a preset:
+
+```bash
+posterforge render --preset alert-brief --out output.png
+posterforge preset incident-review --out incident.json
+```
+
 For longer material, create this `CardSpec` shape first:
 
 ```json
@@ -57,24 +64,31 @@ Use only `style`, `title`, `summary`, `content`, and optional `footer` unless th
 ## Happy Path
 
 1. Read the source material.
-2. Compress it into `title`, `summary`, and short content points.
-3. Pick a style using the selection rules.
-4. Check the selected style's text budget. Rewrite overlong fields before rendering.
-5. For short cards, render directly:
+2. Pick a scenario preset when the user's intent matches one of the preset rules.
+3. Replace starter preset text with the user's actual facts, or compress the source into `title`, `summary`, and short content points.
+4. Pick or override a style using the selection rules.
+5. Check the selected style's text budget. Rewrite overlong fields before rendering.
+6. For short cards, render directly:
 
 ```bash
 posterforge render --style signal --title "Service Health" --summary "Errors are down." --item "Impact: One route was affected." --item "Action: Keep fallback enabled." --out output.png
 ```
 
-6. For longer cards, save the JSON as `spec.json` in the task folder and run:
+7. For a scenario card, render from a preset and override facts when needed:
+
+```bash
+posterforge render --preset alert-brief --title "Kong 4xx Alert" --summary "404 increased on one route." --item "Cause: Upstream returned model-not-found." --out output.png
+```
+
+8. For longer cards, save the JSON as `spec.json` in the task folder and run:
 
 ```bash
 posterforge render spec.json --out output.png
 ```
 
-7. Inspect `output.png`.
-8. If text is clipped, crowded, or visually awkward, shorten the JSON and rerender.
-9. Send or return `output.png`.
+9. Inspect `output.png`.
+10. If text is clipped, crowded, or visually awkward, shorten the JSON and rerender.
+11. Send or return `output.png`.
 
 ## CLI Fallback
 
@@ -102,6 +116,23 @@ PNG export requires Chromium, Google Chrome, or another compatible headless brow
 - Unknown intent: use `signal` for general business/report cards.
 
 Keep the image scannable. The preferred shape is always title, summary, and content. Avoid decorative fields, fake data, and raw transcript dumps.
+
+## Preset Selection
+
+Choose a preset before choosing a style when the user intent is scenario-specific:
+
+- Alert triage / root cause: `alert-brief`.
+- Incident / postmortem snapshot: `incident-review`.
+- Weekly update / team brief: `weekly-report`.
+- Release / launch note: `launch-notes`.
+- Decision / trade-off memo: `decision-memo`.
+- Experiment / KPI result: `experiment-result`.
+- Ranking / battle report: `ranking-report`.
+- User feedback / survey synthesis: `product-feedback`.
+- Daily status / standup: `daily-digest`.
+- Quote / principle / short takeaway: `quote-card`.
+
+Use `posterforge presets` to list the available presets. Presets are starter specs only; always replace their sample text with the user's actual content before final rendering.
 
 ## Text Budgets
 

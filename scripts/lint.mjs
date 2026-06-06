@@ -3,6 +3,7 @@ import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { extname, join, relative } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { listTemplates } from '../src/templates/registry.mjs';
+import { listPresets } from '../src/presets/catalog.mjs';
 
 const ROOT_DIR = new URL('..', import.meta.url).pathname;
 const IGNORE_DIRS = new Set(['.git', '.vscode', 'node_modules', 'dist', 'build', '.cache']);
@@ -88,11 +89,52 @@ function checkPreviewGallery() {
   }
 }
 
+function checkPresetPreviewGallery() {
+  const presetIds = listPresets().map((preset) => preset.id).sort();
+  const previewDir = join(ROOT_DIR, 'docs', 'preset-previews');
+
+  if (!existsSync(previewDir)) {
+    failures.push('docs/preset-previews: missing preset preview directory');
+    return;
+  }
+
+  const previewNames = readdirSync(previewDir)
+    .filter((name) => name.endsWith('.png'))
+    .map((name) => name.slice(0, -4))
+    .sort();
+
+  const expected = presetIds.join(',');
+  const actual = previewNames.join(',');
+  if (expected !== actual) {
+    failures.push(`docs/preset-previews: preset previews are out of sync\nexpected: ${expected}\nactual:   ${actual}`);
+  }
+}
+
+function checkPresets() {
+  const styles = new Set(listTemplates().map((template) => template.styleName));
+  const seen = new Map();
+
+  for (const preset of listPresets()) {
+    if (!styles.has(preset.style)) {
+      failures.push(`preset ${preset.id}: unknown style "${preset.style}"`);
+    }
+
+    for (const id of [preset.id, ...(preset.aliases || [])]) {
+      if (seen.has(id)) {
+        failures.push(`preset ${preset.id}: duplicate preset id or alias "${id}" already used by ${seen.get(id)}`);
+      }
+      seen.set(id, preset.id);
+    }
+  }
+}
+
 walk(ROOT_DIR);
 checkJson();
 checkJavaScriptSyntax();
 checkMarkdownLinks();
 checkPreviewGallery();
+checkPresetPreviewGallery();
+checkPresets();
 
 if (failures.length) {
   console.error(failures.join('\n\n'));

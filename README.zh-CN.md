@@ -12,9 +12,9 @@
 
 PosterForge Skill 不是设计软件，不是图片生成模型，不是 PPT 工具，也不是多图轮播系统。它是一个面向 Agent 的文字海报渲染器：支持直接命令行输入，版式稳定，本地渲染，输出高分辨率 PNG。
 
-| Ledger | Arena | Signal |
-| --- | --- | --- |
-| ![Ledger 预览](docs/previews/ledger.png) | ![Arena 预览](docs/previews/arena.png) | ![Signal 预览](docs/previews/signal.png) |
+| 告警简报 | 事故复盘 | 战报排行 | 用户反馈 |
+| --- | --- | --- | --- |
+| ![告警简报 preset 预览](docs/preset-previews/alert-brief.png) | ![事故复盘 preset 预览](docs/preset-previews/incident-review.png) | ![战报排行 preset 预览](docs/preset-previews/ranking-report.png) | ![用户反馈 preset 预览](docs/preset-previews/product-feedback.png) |
 
 ## 30 秒开始
 
@@ -90,6 +90,48 @@ posterforge spec \
 | 周报、日报、团队简报 | [examples/weekly-brief.json](examples/weekly-brief.json) | `editorial`, `signal`, `atlas` |
 | 产品发布更新 | [examples/product-update.json](examples/product-update.json) | `signal`, `bulletin`, `compass` |
 
+## 场景预设
+
+Preset 是常见 Agent 任务的内容蓝图。它先生成标准 `CardSpec`，你可以直接用默认风格，也可以覆盖成其他视觉风格。
+
+```bash
+posterforge presets
+posterforge preset incident-review --out incident.json
+posterforge render --preset alert-brief --out alert.png
+posterforge render --preset launch-notes --style mercury --out launch.png
+```
+
+内置预设：
+
+| Preset | 默认风格 | 适合场景 |
+| --- | --- | --- |
+| `alert-brief` | `ledger` | 告警排查、根因总结 |
+| `incident-review` | `noir` | 事故总结、复盘快照 |
+| `weekly-report` | `editorial` | 周报、团队简报、管理层摘要 |
+| `launch-notes` | `bulletin` | 发布说明、上线公告 |
+| `decision-memo` | `compass` | 架构决策、产品取舍 |
+| `experiment-result` | `signal` | 实验结果、KPI 变化 |
+| `ranking-report` | `arena` | 排行榜、战报 |
+| `product-feedback` | `prism` | 用户反馈、问卷总结 |
+| `daily-digest` | `mercury` | 日报、站会简报 |
+| `quote-card` | `pulse` | 金句、原则、短观点 |
+
+Preset 封面图廊：
+
+| 告警简报 | 事故复盘 | 周报 | 发布说明 |
+| --- | --- | --- | --- |
+| ![告警简报 preset 预览](docs/preset-previews/alert-brief.png) | ![事故复盘 preset 预览](docs/preset-previews/incident-review.png) | ![周报 preset 预览](docs/preset-previews/weekly-report.png) | ![发布说明 preset 预览](docs/preset-previews/launch-notes.png) |
+
+| 决策备忘 | 实验结果 | 战报排行 | 用户反馈 |
+| --- | --- | --- | --- |
+| ![决策备忘 preset 预览](docs/preset-previews/decision-memo.png) | ![实验结果 preset 预览](docs/preset-previews/experiment-result.png) | ![战报排行 preset 预览](docs/preset-previews/ranking-report.png) | ![用户反馈 preset 预览](docs/preset-previews/product-feedback.png) |
+
+| 日报 | 金句卡 |
+| --- | --- |
+| ![日报 preset 预览](docs/preset-previews/daily-digest.png) | ![金句卡 preset 预览](docs/preset-previews/quote-card.png) |
+
+完整说明见 [docs/PRESETS.md](docs/PRESETS.md)。
+
 渲染内置示例：
 
 ```bash
@@ -103,33 +145,25 @@ pnpm render:product
 
 下面这些预览图都来自同一份 JSON 结构，可以用 `pnpm generate:previews` 重新生成。
 
-| Arena | Podium | Sprint |
-| --- | --- | --- |
-| ![Arena 预览](docs/previews/arena.png) | ![Podium 预览](docs/previews/podium.png) | ![Sprint 预览](docs/previews/sprint.png) |
+| Arena | Podium | Sprint | Delta |
+| --- | --- | --- | --- |
+| ![Arena 预览](docs/previews/arena.png) | ![Podium 预览](docs/previews/podium.png) | ![Sprint 预览](docs/previews/sprint.png) | ![Delta 预览](docs/previews/delta.png) |
 
-| Delta | Matrix | Heat |
-| --- | --- | --- |
-| ![Delta 预览](docs/previews/delta.png) | ![Matrix 预览](docs/previews/matrix.png) | ![Heat 预览](docs/previews/heat.png) |
+| Matrix | Heat | Ledger | Dossier |
+| --- | --- | --- | --- |
+| ![Matrix 预览](docs/previews/matrix.png) | ![Heat 预览](docs/previews/heat.png) | ![Ledger 预览](docs/previews/ledger.png) | ![Dossier 预览](docs/previews/dossier.png) |
 
-| Ledger | Dossier | Audit |
-| --- | --- | --- |
-| ![Ledger 预览](docs/previews/ledger.png) | ![Dossier 预览](docs/previews/dossier.png) | ![Audit 预览](docs/previews/audit.png) |
+| Audit | Terminal | Bulletin | Noir |
+| --- | --- | --- | --- |
+| ![Audit 预览](docs/previews/audit.png) | ![Terminal 预览](docs/previews/terminal.png) | ![Bulletin 预览](docs/previews/bulletin.png) | ![Noir 预览](docs/previews/noir.png) |
 
-| Terminal | Bulletin | Noir |
-| --- | --- | --- |
-| ![Terminal 预览](docs/previews/terminal.png) | ![Bulletin 预览](docs/previews/bulletin.png) | ![Noir 预览](docs/previews/noir.png) |
+| Graphite | Signal | Pulse | Atlas |
+| --- | --- | --- | --- |
+| ![Graphite 预览](docs/previews/graphite.png) | ![Signal 预览](docs/previews/signal.png) | ![Pulse 预览](docs/previews/pulse.png) | ![Atlas 预览](docs/previews/atlas.png) |
 
-| Graphite | Signal | Pulse |
-| --- | --- | --- |
-| ![Graphite 预览](docs/previews/graphite.png) | ![Signal 预览](docs/previews/signal.png) | ![Pulse 预览](docs/previews/pulse.png) |
-
-| Atlas | Prism | Compass |
-| --- | --- | --- |
-| ![Atlas 预览](docs/previews/atlas.png) | ![Prism 预览](docs/previews/prism.png) | ![Compass 预览](docs/previews/compass.png) |
-
-| Mercury | Editorial |
-| --- | --- |
-| ![Mercury 预览](docs/previews/mercury.png) | ![Editorial 预览](docs/previews/editorial.png) |
+| Prism | Compass | Mercury | Editorial |
+| --- | --- | --- | --- |
+| ![Prism 预览](docs/previews/prism.png) | ![Compass 预览](docs/previews/compass.png) | ![Mercury 预览](docs/previews/mercury.png) | ![Editorial 预览](docs/previews/editorial.png) |
 
 ## 安装
 
@@ -188,10 +222,22 @@ posterforge render --style mercury --title "Launch Notes" --summary "The release
 posterforge init --style signal --out card.json
 ```
 
+创建场景预设 spec：
+
+```bash
+posterforge preset alert-brief --out card.json
+```
+
 列出所有风格：
 
 ```bash
 posterforge templates
+```
+
+列出所有场景预设：
+
+```bash
+posterforge presets
 ```
 
 输出 npm 包内置的 skill 文件路径，方便接入 Agent runtime：

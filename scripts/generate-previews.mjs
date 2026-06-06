@@ -4,11 +4,13 @@ import { spawnSync } from 'node:child_process';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { listTemplates } from '../src/templates/registry.mjs';
+import { buildPresetSpec, listPresets } from '../src/presets/catalog.mjs';
 
 const ROOT_DIR = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SPEC_DIR = join(ROOT_DIR, '.cache', 'preview-specs');
 const HTML_DIR = join(ROOT_DIR, '.cache', 'preview-html');
 const OUT_DIR = join(ROOT_DIR, 'docs', 'previews');
+const PRESET_OUT_DIR = join(ROOT_DIR, 'docs', 'preset-previews');
 
 function titleCase(value) {
   return value
@@ -77,10 +79,46 @@ function renderPreview(template) {
   process.stdout.write(`${template.styleName}\t${outPath}\n`);
 }
 
+function renderPresetPreview(preset) {
+  const specPath = join(SPEC_DIR, `preset-${preset.id}.json`);
+  const htmlPath = join(HTML_DIR, `preset-${preset.id}.html`);
+  const outPath = join(PRESET_OUT_DIR, `${preset.id}.png`);
+
+  writeFileSync(specPath, `${JSON.stringify(buildPresetSpec(preset.id), null, 2)}\n`);
+
+  const result = spawnSync(process.execPath, [
+    join(ROOT_DIR, 'bin', 'posterforge.mjs'),
+    'render',
+    specPath,
+    '--out',
+    outPath,
+    '--html',
+    htmlPath,
+    '--scale',
+    '1'
+  ], {
+    cwd: ROOT_DIR,
+    encoding: 'utf8',
+    stdio: ['ignore', 'pipe', 'pipe']
+  });
+
+  if (result.status !== 0) {
+    process.stderr.write(result.stderr || result.stdout || '');
+    throw new Error(`Failed to render preset ${preset.id}`);
+  }
+
+  process.stdout.write(`preset:${preset.id}\t${outPath}\n`);
+}
+
 mkdirSync(SPEC_DIR, { recursive: true });
 mkdirSync(HTML_DIR, { recursive: true });
 mkdirSync(OUT_DIR, { recursive: true });
+mkdirSync(PRESET_OUT_DIR, { recursive: true });
 
 for (const template of listTemplates()) {
   renderPreview(template);
+}
+
+for (const preset of listPresets()) {
+  renderPresetPreview(preset);
 }

@@ -12,9 +12,9 @@ Turn quick CLI parameters or a tiny JSON spec into polished mobile-first text po
 
 PosterForge Skill is not a design app, image generation model, PPT tool, or carousel builder. It is an agent-friendly text poster renderer: direct command-line input, deterministic layout, high-DPI PNG output, and reusable visual systems.
 
-| Ledger | Arena | Signal |
-| --- | --- | --- |
-| ![Ledger preview](docs/previews/ledger.png) | ![Arena preview](docs/previews/arena.png) | ![Signal preview](docs/previews/signal.png) |
+| Alert Brief | Incident Review | Ranking Report | Product Feedback |
+| --- | --- | --- | --- |
+| ![Alert Brief preset preview](docs/preset-previews/alert-brief.png) | ![Incident Review preset preview](docs/preset-previews/incident-review.png) | ![Ranking Report preset preview](docs/preset-previews/ranking-report.png) | ![Product Feedback preset preview](docs/preset-previews/product-feedback.png) |
 
 ## 30-Second Start
 
@@ -90,6 +90,48 @@ posterforge spec \
 | Weekly team brief | [examples/weekly-brief.json](examples/weekly-brief.json) | `editorial`, `signal`, `atlas` |
 | Product launch update | [examples/product-update.json](examples/product-update.json) | `signal`, `bulletin`, `compass` |
 
+## Scenario Presets
+
+Presets are ready-made content blueprints for common agent tasks. They create a standard `CardSpec` first; you can keep the default style or override it.
+
+```bash
+posterforge presets
+posterforge preset incident-review --out incident.json
+posterforge render --preset alert-brief --out alert.png
+posterforge render --preset launch-notes --style mercury --out launch.png
+```
+
+Built-in presets:
+
+| Preset | Default style | Best for |
+| --- | --- | --- |
+| `alert-brief` | `ledger` | alert triage and root-cause notes |
+| `incident-review` | `noir` | incident summaries and postmortem snapshots |
+| `weekly-report` | `editorial` | weekly updates and leadership summaries |
+| `launch-notes` | `bulletin` | release notes and launch announcements |
+| `decision-memo` | `compass` | architecture decisions and product trade-offs |
+| `experiment-result` | `signal` | experiments and KPI movement |
+| `ranking-report` | `arena` | leaderboards and battle reports |
+| `product-feedback` | `prism` | survey and feedback synthesis |
+| `daily-digest` | `mercury` | daily status cards |
+| `quote-card` | `pulse` | short principles and social quotes |
+
+Preset cover gallery:
+
+| Alert Brief | Incident Review | Weekly Report | Launch Notes |
+| --- | --- | --- | --- |
+| ![Alert Brief preset preview](docs/preset-previews/alert-brief.png) | ![Incident Review preset preview](docs/preset-previews/incident-review.png) | ![Weekly Report preset preview](docs/preset-previews/weekly-report.png) | ![Launch Notes preset preview](docs/preset-previews/launch-notes.png) |
+
+| Decision Memo | Experiment Result | Ranking Report | Product Feedback |
+| --- | --- | --- | --- |
+| ![Decision Memo preset preview](docs/preset-previews/decision-memo.png) | ![Experiment Result preset preview](docs/preset-previews/experiment-result.png) | ![Ranking Report preset preview](docs/preset-previews/ranking-report.png) | ![Product Feedback preset preview](docs/preset-previews/product-feedback.png) |
+
+| Daily Digest | Quote Card |
+| --- | --- |
+| ![Daily Digest preset preview](docs/preset-previews/daily-digest.png) | ![Quote Card preset preview](docs/preset-previews/quote-card.png) |
+
+See [docs/PRESETS.md](docs/PRESETS.md) for the full preset guide.
+
 Render bundled examples:
 
 ```bash
@@ -103,33 +145,25 @@ pnpm render:product
 
 These previews are generated from the same JSON shape with `pnpm generate:previews`.
 
-| Arena | Podium | Sprint |
-| --- | --- | --- |
-| ![Arena preview](docs/previews/arena.png) | ![Podium preview](docs/previews/podium.png) | ![Sprint preview](docs/previews/sprint.png) |
+| Arena | Podium | Sprint | Delta |
+| --- | --- | --- | --- |
+| ![Arena preview](docs/previews/arena.png) | ![Podium preview](docs/previews/podium.png) | ![Sprint preview](docs/previews/sprint.png) | ![Delta preview](docs/previews/delta.png) |
 
-| Delta | Matrix | Heat |
-| --- | --- | --- |
-| ![Delta preview](docs/previews/delta.png) | ![Matrix preview](docs/previews/matrix.png) | ![Heat preview](docs/previews/heat.png) |
+| Matrix | Heat | Ledger | Dossier |
+| --- | --- | --- | --- |
+| ![Matrix preview](docs/previews/matrix.png) | ![Heat preview](docs/previews/heat.png) | ![Ledger preview](docs/previews/ledger.png) | ![Dossier preview](docs/previews/dossier.png) |
 
-| Ledger | Dossier | Audit |
-| --- | --- | --- |
-| ![Ledger preview](docs/previews/ledger.png) | ![Dossier preview](docs/previews/dossier.png) | ![Audit preview](docs/previews/audit.png) |
+| Audit | Terminal | Bulletin | Noir |
+| --- | --- | --- | --- |
+| ![Audit preview](docs/previews/audit.png) | ![Terminal preview](docs/previews/terminal.png) | ![Bulletin preview](docs/previews/bulletin.png) | ![Noir preview](docs/previews/noir.png) |
 
-| Terminal | Bulletin | Noir |
-| --- | --- | --- |
-| ![Terminal preview](docs/previews/terminal.png) | ![Bulletin preview](docs/previews/bulletin.png) | ![Noir preview](docs/previews/noir.png) |
+| Graphite | Signal | Pulse | Atlas |
+| --- | --- | --- | --- |
+| ![Graphite preview](docs/previews/graphite.png) | ![Signal preview](docs/previews/signal.png) | ![Pulse preview](docs/previews/pulse.png) | ![Atlas preview](docs/previews/atlas.png) |
 
-| Graphite | Signal | Pulse |
-| --- | --- | --- |
-| ![Graphite preview](docs/previews/graphite.png) | ![Signal preview](docs/previews/signal.png) | ![Pulse preview](docs/previews/pulse.png) |
-
-| Atlas | Prism | Compass |
-| --- | --- | --- |
-| ![Atlas preview](docs/previews/atlas.png) | ![Prism preview](docs/previews/prism.png) | ![Compass preview](docs/previews/compass.png) |
-
-| Mercury | Editorial |
-| --- | --- |
-| ![Mercury preview](docs/previews/mercury.png) | ![Editorial preview](docs/previews/editorial.png) |
+| Prism | Compass | Mercury | Editorial |
+| --- | --- | --- | --- |
+| ![Prism preview](docs/previews/prism.png) | ![Compass preview](docs/previews/compass.png) | ![Mercury preview](docs/previews/mercury.png) | ![Editorial preview](docs/previews/editorial.png) |
 
 ## Install
 
@@ -188,10 +222,22 @@ Create a starter spec:
 posterforge init --style signal --out card.json
 ```
 
+Create a scenario preset spec:
+
+```bash
+posterforge preset alert-brief --out card.json
+```
+
 List available styles:
 
 ```bash
 posterforge templates
+```
+
+List available scenario presets:
+
+```bash
+posterforge presets
 ```
 
 Print the bundled skill file path for agent runtimes:

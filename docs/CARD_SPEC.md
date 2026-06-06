@@ -2,6 +2,15 @@
 
 `CardSpec` is the public input contract. Agents and external tools inject data through this JSON shape. Templates decide how to present it.
 
+Scenario presets can create starter `CardSpec` objects for common workflows:
+
+```bash
+posterforge preset alert-brief --out card.json
+posterforge render --preset incident-review --out incident.png
+```
+
+See [PRESETS.md](PRESETS.md) for the preset catalog.
+
 ## Top-Level Shape
 
 ```json
